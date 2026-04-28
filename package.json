@@ -1,0 +1,12 @@
+{
+  "name": "ryuhuustore-dev",
+  "version": "1.0.0",
+  "description": "Professional Local Development for Ryuhuustore",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [],
+  "author": "Antigravity",
+  "license": "ISC"
+}

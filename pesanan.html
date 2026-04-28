@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesanan Saya - Ryuhuustore</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-60: #0b0e14;
+            --color-30: #131722;
+            --color-10: #6366f1;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--color-60);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: var(--color-30);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--color-10);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            height: 100%;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            color: var(--color-10);
+        }
+
+        .main-content {
+            padding: 2.5rem;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+        }
+
+        .order-table-container {
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            padding: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .empty-state svg {
+            color: var(--color-10);
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        /* Modal Style */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 24px;
+            padding: 2rem;
+            animation: modalIn 0.3s ease-out;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .invoice-link {
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .invoice-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <a href="index.html" class="logo">Ryuhuu<span>store</span></a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+                <div style="height: 1px; background: var(--border-color); margin: 8px 0;"></div>
+                <a href="dashboard.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="pesanan.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    Pesanan Saya
+                </a>
+                <a href="akun.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Pengaturan Akun
+                </a>
+                <a href="javascript:void(0)" onclick="logoutUser()" class="nav-item"
+                    style="margin-top: auto; color: #ef4444;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Keluar
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Riwayat Pesanan</h1>
+                <p>Status dan detail transaksi Anda di Ryuhuustore. Klik Invoice untuk detail.</p>
+            </header>
+
+            <div class="order-table-container">
+                <table id="orderTable">
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Tanggal</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderList"></tbody>
+                </table>
+                <div id="emptyOrders" class="empty-state hidden">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                        <path d="M3 6h18"></path>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <h3>Belum ada pesanan</h3>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="orderModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="font-size: 1.2rem;">Detail Pesanan</h2>
+                <button class="btn-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody">
+                <!-- Content via JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="ui.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        const orders = JSON.parse(localStorage.getItem('ryuhuu_order_history')) || [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderOrders();
+        });
+
+        function renderOrders() {
+            const list = document.getElementById('orderList');
+            const user = getCurrentUser();
+            const userOrders = orders.filter(o => o.email === user.email);
+
+            if (userOrders.length === 0) {
+                document.getElementById('orderTable').classList.add('hidden');
+                document.getElementById('emptyOrders').classList.remove('hidden');
+                return;
+            }
+
+            userOrders.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(order => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><a class="invoice-link" onclick="showDetail('${order.id}')" style="color: var(--color-10); font-weight: 700; font-family: monospace;">${order.id}</a></td>
+                    <td style="color: var(--text-secondary);">${new Date(order.date).toLocaleDateString('id-ID')}</td>
+                    <td style="font-weight: 600;">Rp ${order.total.toLocaleString('id-ID')}</td>
+                    <td><span class="status-badge status-success">Berhasil</span></td>
+                `;
+                list.appendChild(tr);
+            });
+        }
+
+        function showDetail(id) {
+            const order = orders.find(o => o.id === id);
+            if (!order) return;
+
+            const body = document.getElementById('modalBody');
+            let itemsHtml = (order.items && order.items.length > 0) ?
+                order.items.map(it => `<div class="detail-item"><span>${it.product}</span><span>Rp ${parseInt(it.price).toLocaleString('id-ID')}</span></div>`).join('') :
+                '<p>Item data not available for legacy orders.</p>';
+
+            body.innerHTML = `
+                <div style="margin-bottom: 1.5rem;">
+                    <div class="detail-item"><span style="color: var(--text-secondary);">ID Pesanan:</span><span style="font-weight: 700;">${order.id}</span></div>
+                    <div class="detail-item"><span style="color: var(--text-secondary);">Tanggal:</span><span>${new Date(order.date).toLocaleString('id-ID')}</span></div>
+                </div>
+                <div style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 16px; margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--color-10);">Daftar Produk</h3>
+                    ${itemsHtml}
+                </div>
+                <div style="border-top: 1px solid var(--border-color); padding-top: 1rem;">
+                    <div class="detail-item"><span>Subtotal</span><span>Rp ${(order.subtotal || 0).toLocaleString('id-ID')}</span></div>
+                    <div class="detail-item"><span>Diskon</span><span style="color: #10b981;">- Rp ${(order.discount || 0).toLocaleString('id-ID')}</span></div>
+                    <div class="detail-item"><span>Donasi</span><span style="color: #10b981;">+ Rp ${(order.donation || 0).toLocaleString('id-ID')}</span></div>
+                    <div class="detail-item" style="font-size: 1.1rem; font-weight: 700; margin-top: 10px; color: var(--color-10);"><span>Total</span><span>Rp ${order.total.toLocaleString('id-ID')}</span></div>
+                </div>
+            `;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        window.onclick = (event) => {
+            if (event.target == document.getElementById('orderModal')) closeModal();
+        };
+    </script>
+</body>
+
+</html>

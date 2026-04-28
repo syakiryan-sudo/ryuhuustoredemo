@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Global - Ryuhuustore</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-60: #0b0e14;
+            --color-30: #131722;
+            --color-10: #6366f1;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --glass: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-60);
+            background-image: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.05), transparent);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 30%, var(--color-10));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Payment Sections */
+        .payment-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .payment-card:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--color-10);
+        }
+
+        /* QRIS UI */
+        .qris-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .qris-frame {
+            background: white;
+            padding: 1rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            transition: var(--transition);
+        }
+
+        .qris-frame img {
+            max-width: 280px;
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .invoice-box {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 50px;
+            border: 1px dashed var(--color-10);
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .invoice-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        .invoice-id {
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-weight: 800;
+            color: var(--color-10);
+            font-size: 1.2rem;
+        }
+
+        /* Crypto UI */
+        .crypto-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .crypto-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .crypto-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--color-10);
+        }
+
+        .crypto-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .crypto-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .btc {
+            background: linear-gradient(135deg, #f7931a, #ffab4a);
+        }
+
+        .ltc {
+            background: linear-gradient(135deg, #345d9d, #5a8bd4);
+        }
+
+        .addr-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .addr-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .addr-value {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            word-break: break-all;
+            margin-top: 4px;
+        }
+
+        .btn-copy {
+            background: var(--color-10);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-copy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .back-btn {
+                top: 1.5rem;
+                left: 1.5rem;
+            }
+
+            .crypto-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-copy {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="dashboard.html" class="back-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Kembali ke Dashboard
+    </a>
+
+    <div class="container">
+        <header class="header">
+            <h1>Isi Saldo Ryuhuu</h1>
+            <p>Gunakan metode di bawah ini untuk menambah saldo akun Anda</p>
+
+            <div class="invoice-box">
+                <span class="invoice-label">ID Transaksi Aktif</span>
+                <span id="invoice-id" class="invoice-id">ryuuhu-wait-....</span>
+            </div>
+        </header>
+
+        <!-- QRIS -->
+        <div class="payment-card">
+            <div class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                QRIS (E-Wallet & M-Banking)
+            </div>
+            <div class="qris-wrapper">
+                <div class="qris-frame">
+                    <img src="QRIS.png" alt="Merchant QRIS">
+                </div>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary); max-width: 400px;">
+                    Scan kode QR di atas menggunakan GoPay, OVO, Dana, LinkAja, atau aplikasi m-banking Anda.
+                </p>
+            </div>
+        </div>
+
+        <!-- Crypto -->
+        <div class="payment-card">
+            <div class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5Z"></path>
+                    <path d="m2 17 10 5 10-5"></path>
+                    <path d="m2 12 10 5 10-5"></path>
+                </svg>
+                Cryptocurrency
+            </div>
+            <div class="crypto-grid">
+                <!-- Bitcoin -->
+                <div class="crypto-card">
+                    <div class="crypto-info">
+                        <div class="crypto-icon btc">₿</div>
+                        <div class="addr-text">
+                            <span class="addr-label">Bitcoin (BTC)</span>
+                            <span class="addr-value" id="btc-addr">bc1q6sxzn89wwd3xh4vu95ahcvvp5qra98gay2n777</span>
+                        </div>
+                    </div>
+                    <button class="btn-copy"
+                        onclick="copyAddr('bc1q6sxzn89wwd3xh4vu95ahcvvp5qra98gay2n777', this)">Salin</button>
+                </div>
+
+                <!-- Litecoin -->
+                <div class="crypto-card">
+                    <div class="crypto-info">
+                        <div class="crypto-icon ltc">Ł</div>
+                        <div class="addr-text">
+                            <span class="addr-label">Litecoin (LTC)</span>
+                            <span class="addr-value" id="ltc-addr">ltc1qfn85vxq7gt0ucyzpygy8wyhtes2de2juhkg05z</span>
+                        </div>
+                    </div>
+                    <button class="btn-copy"
+                        onclick="copyAddr('ltc1qfn85vxq7gt0ucyzpygy8wyhtes2de2juhkg05z', this)">Salin</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Box (Admin Only) -->
+        <div id="test-mode-section" class="payment-card"
+            style="border-color: var(--color-10); background: rgba(99, 102, 241, 0.03); display: none;">
+            <div class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Konfirmasi Pembayaran (Test Mode)
+            </div>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">
+                Gunakan tombol di bawah ini untuk mensimulasikan saldo masuk setelah transfer. Dalam versi produksi, ini
+                akan dilakukan oleh Admin.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn-copy" onclick="simulateTopUp(50000)" style="flex: 1; padding: 15px;">Simulasi Rp
+                    50.000</button>
+                <button class="btn-copy" onclick="simulateTopUp(100000)"
+                    style="flex: 1; padding: 15px; background: #ec4899;">Simulasi Rp 100.000</button>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: var(--text-secondary); font-size: 0.85rem;">
+            &copy; 2024 Ryuhuustore. Bukti transfer wajib dikirim ke
+            <a href="https://discord.com/users/1120396377839648780"
+                style="color: var(--color-10); font-weight: 700;">Admin</a>.
+        </p>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="ui.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const genId = () => {
+                const s = () => Math.random().toString(36).substring(2, 6).toUpperCase();
+                return `ryuuhu-${s()}-${s()}-${s()}`;
+            };
+            document.getElementById('invoice-id').textContent = genId();
+        });
+
+        function copyAddr(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const old = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.textContent = old;
+                    btn.style.background = '';
+                }, 1500);
+            });
+        }
+
+        function simulateTopUp(amount) {
+            if (confirm(`Simulasi masuknya saldo Rp ${amount.toLocaleString('id-ID')}?`)) {
+                if (typeof updateUserBalance === 'function') {
+                    updateUserBalance(amount);
+                } else {
+                    alert('Sistem sedang memuat, silakan coba lagi.');
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

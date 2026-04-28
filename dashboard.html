@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Ryuhuustore</title>
+
+    <style>
+        :root {
+            --color-60: #0b0e14;
+            --color-30: #131722;
+            --color-10: #6366f1;
+            --border-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-60);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            background: var(--color-30);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--color-10);
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            height: 100%;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            color: var(--color-10);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2.5rem;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-msg h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .welcome-msg p {
+            color: var(--text-secondary);
+        }
+
+        .user-profile-summary {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 8px 16px;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+        }
+
+        .user-profile-summary img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            padding: 10px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--color-10);
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* Quick Actions */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .action-card {
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            border-radius: 24px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            color: var(--color-10);
+        }
+
+        .action-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .action-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <a href="index.html" class="logo">Ryuhuu<span>store</span></a>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    Kembali ke Beranda
+                </a>
+                <div style="height: 1px; background: var(--border-color); margin: 8px 0;"></div>
+                <a href="dashboard.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    Dashboard
+                </a>
+                <a href="pesanan.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    Pesanan Saya
+                </a>
+                <a href="akun.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Pengaturan Akun
+                </a>
+                <a href="javascript:void(0)" onclick="logoutUser()" class="nav-item"
+                    style="margin-top: auto; color: #ef4444;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Keluar
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="welcome-msg">
+                    <h1 id="user-name-title">Selamat Datang!</h1>
+                    <p>Overview aktivitas akun Ryuhuustore Anda.</p>
+                </div>
+                <div class="user-profile-summary">
+                    <img id="user-avatar-mini" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Admin"
+                        alt="Avatar">
+                    <span id="user-name-mini" style="font-size: 0.9rem; font-weight: 600;">...</span>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="active-orders-count">0</div>
+                    <div class="stat-label">Pesanan Aktif</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.1);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="total-spent-amount">Rp 0</div>
+                    <div class="stat-label">Total Belanja</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="user-balance-display">Rp 0</div>
+                    <div class="stat-label">Saldo Akun</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                Akses Cepat
+            </h2>
+
+            <div class="quick-actions">
+                <a href="index.html" class="action-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-10)"
+                        stroke-width="2">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <h3>Mulai Belanja</h3>
+                    <p>Jelajahi produk digital terbaru dan termurah di Ryuhuustore.</p>
+                </a>
+                <a href="akun.html" class="action-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-10)"
+                        stroke-width="2">
+                        <path d="M12 20h9"></path>
+                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                    <h3>Edit Profil</h3>
+                    <p>Ubah nama, email, avatar, atau password akun Anda.</p>
+                </a>
+                <a href="globalpayment.html" class="action-card">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-10)"
+                        stroke-width="2">
+                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                    </svg>
+                    <h3>Isi Saldo</h3>
+                    <p>Top up saldo akun Anda untuk transaksi yang lebih mudah dan cepat.</p>
+                </a>
+            </div>
+
+            <!-- Admin Management Section (Hidden by default) -->
+            <div id="admin-management" class="action-card"
+                style="margin-top: 3rem; display: none; border-color: var(--color-10);">
+                <div class="section-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <polyline points="16 11 18 13 22 9"></polyline>
+                    </svg>
+                    Manajemen Saldo Pengguna (Admin Only)
+                </div>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.9rem;">
+                    Gunakan formulir ini untuk menambahkan saldo ke akun pengguna secara manual setelah konfirmasi
+                    pembayaran.
+                </p>
+                <div style="display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                    <input type="email" id="admin-user-email" placeholder="Email Pengguna"
+                        style="background: var(--color-60); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 12px; color: white;">
+                    <input type="number" id="admin-balance-amount" placeholder="Jumlah Saldo (Rp)"
+                        style="background: var(--color-60); border: 1px solid var(--border-color); padding: 12px 20px; border-radius: 12px; color: white;">
+                    <button onclick="adminTopUp()"
+                        style="background: var(--color-10); color: white; border: none; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer;">
+                        Tambah Saldo
+                    </button>
+                </div>
+            </div>
+
+            <footer
+                style="margin-top: 4rem; text-align: center; color: var(--text-secondary); font-size: 0.85rem; padding-bottom: 2rem;">
+                &copy; 2024 Ryuhuustore. All Rights Reserved.
+            </footer>
+        </main>
+    </div>
+
+    <!-- UI/Auth Scripts -->
+    <script src="ui.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            // Header Elements
+            const nameTitle = document.getElementById('user-name-title');
+            const nameMini = document.getElementById('user-name-mini');
+            const avatarMini = document.getElementById('user-avatar-mini');
+            const balanceDisplay = document.getElementById('user-balance-display');
+
+            if (nameTitle) nameTitle.textContent = `Selamat Datang, ${user.fullname}!`;
+            if (nameMini) nameMini.textContent = user.fullname;
+            if (avatarMini) avatarMini.src = user.avatar;
+            if (balanceDisplay) balanceDisplay.textContent = `Rp ${user.balance.toLocaleString('id-ID')}`;
+
+            // Calculate Shopping Stats
+            if (user.role !== 'admin') {
+                const orders = JSON.parse(localStorage.getItem('ryuhuu_order_history')) || [];
+                const userOrders = orders.filter(o => o.email === user.email);
+                const totalSpent = userOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+
+                if (document.getElementById('active-orders-count'))
+                    document.getElementById('active-orders-count').textContent = userOrders.length;
+                if (document.getElementById('total-spent-amount'))
+                    document.getElementById('total-spent-amount').textContent = `Rp ${totalSpent.toLocaleString('id-ID')}`;
+            } else {
+                // Admin stays at 0
+                if (document.getElementById('active-orders-count'))
+                    document.getElementById('active-orders-count').textContent = '0';
+                if (document.getElementById('total-spent-amount'))
+                    document.getElementById('total-spent-amount').textContent = 'Rp 0';
+
+                // Show Admin Panel
+                const adminPanel = document.getElementById('admin-management');
+                if (adminPanel) adminPanel.style.display = 'block';
+            }
+        });
+
+        function adminTopUp() {
+            const email = document.getElementById('admin-user-email').value.trim();
+            const amount = parseInt(document.getElementById('admin-balance-amount').value);
+
+            if (!email || isNaN(amount) || amount <= 0) {
+                if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Masukkan email dan jumlah valid!', 'error');
+                return;
+            }
+
+            try {
+                const users = JSON.parse(localStorage.getItem('ryuhuu_users')) || [];
+                const userIdx = users.findIndex(u => u.email === email);
+
+                if (userIdx === -1) {
+                    if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Pengguna tidak ditemukan!', 'error');
+                    return;
+                }
+
+                users[userIdx].balance = (users[userIdx].balance || 0) + amount;
+                localStorage.setItem('ryuhuu_users', JSON.stringify(users));
+
+                const currentUser = getCurrentUser();
+                if (currentUser.email === email) {
+                    currentUser.balance = users[userIdx].balance;
+                    localStorage.setItem('ryuhuu_session', JSON.stringify(currentUser));
+                    const balDisp = document.getElementById('user-balance-display');
+                    if (balDisp) balDisp.textContent = `Rp ${currentUser.balance.toLocaleString('id-ID')}`;
+                }
+
+                if (typeof ryuhuu_notify === 'function') ryuhuu_notify(`Berhasil menambahkan Rp ${amount.toLocaleString('id-ID')} ke ${email}`, 'success');
+
+                document.getElementById('admin-user-email').value = '';
+                document.getElementById('admin-balance-amount').value = '';
+
+            } catch (err) {
+                alert('Gagal memproses saldo: ' + err.message);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2834 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang - Ryuhuustore</title>
+    <style>
+        :root {
+            --color-60: #0f172a;
+            --color-30: #1e293b;
+            --color-10: #8b5cf6;
+            --accent-secondary: #ec4899;
+            --accent-warm: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --muted: #6b7280;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-60);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Background Elegant */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--color-60) 0%, #111827 100%);
+        }
+
+        /* Glowing Orbs */
+        .glowing-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--color-10);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            top: 40%;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-warm);
+            bottom: -50px;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-10);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-secondary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: var(--color-10);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-warm);
+            text-decoration: underline;
+        }
+
+        /* Cart Container */
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+            min-height: 60vh;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-10), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--color-30);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .empty-cart-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-10);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .empty-cart h3 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .empty-cart p {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .continue-shopping {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--color-10);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .continue-shopping:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.9);
+        }
+
+        /* Cart Content */
+        .cart-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Cart Items */
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .cart-item {
+            background: var(--color-30);
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cart-item:hover {
+            border-color: var(--color-10);
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .item-details {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .item-details span:not(:last-child)::after {
+            content: '•';
+            margin-left: 1rem;
+            color: var(--border-color);
+        }
+
+        .item-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-warm);
+            margin: 0 2rem;
+        }
+
+        .remove-item {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remove-item:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--color-30);
+            border-radius: 14px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+
+        .order-summary h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .order-summary h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--color-10);
+            border-radius: 2px;
+        }
+
+        /* Coupon & Donation Sections */
+        .coupon-section,
+        .donation-section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .coupon-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .coupon-section h4,
+        .donation-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .coupon-section h4 {
+            color: var(--info);
+        }
+
+        .donation-section h4 {
+            color: var(--success);
+        }
+
+        .coupon-input,
+        .custom-donation {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .coupon-input input,
+        .custom-donation input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .coupon-input input:focus,
+        .custom-donation input:focus {
+            outline: none;
+            border-color: var(--color-10);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .apply-coupon,
+        .apply-donation {
+            background: var(--color-10);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .apply-coupon:hover,
+        .apply-donation:hover {
+            background: rgba(139, 92, 246, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .coupon-message {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            min-height: 1.2rem;
+        }
+
+        .coupon-success {
+            color: var(--success);
+        }
+
+        .coupon-error {
+            color: var(--danger);
+        }
+
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .donation-option {
+            flex: 1;
+            min-width: 70px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .donation-option:hover {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--success);
+            color: var(--text-primary);
+        }
+
+        .donation-option.active {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .donation-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-style: italic;
+        }
+
+        /* Summary Items */
+        .summary-items {
+            margin-bottom: 2rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .summary-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .summary-items::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .summary-items::-webkit-scrollbar-thumb {
+            background: var(--color-10);
+            border-radius: 3px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-color);
+            color: var(--accent-warm);
+        }
+
+        .checkout-button {
+            width: 100%;
+            background: var(--color-10);
+            color: white;
+            border: none;
+            padding: 1.25rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .checkout-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.9);
+        }
+
+        .checkout-button:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* QRIS Payment Section */
+        .qris-payment {
+            background: var(--color-30);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.5s ease-out;
+            margin-top: 2rem;
+        }
+
+        .qris-payment h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .qris-payment h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-10), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-warm);
+            margin: 1rem 0;
+            padding: 0.75rem 1.5rem;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 50px;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+
+        .qris-code {
+            width: 250px;
+            height: 250px;
+            margin: 2rem auto;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--color-10);
+            background: white;
+            padding: 15px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .qris-code:hover {
+            transform: scale(1.02);
+        }
+
+        .qris-code img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 12px;
+        }
+
+        /* TOTAL HARGA BARU - DI BAWAH QRIS */
+        .total-below-qris {
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            border: 2px solid var(--accent-warm);
+        }
+
+        .total-below-qris .label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .total-below-qris .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-warm);
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+        }
+
+        .order-details,
+        .payment-instructions,
+        .upload-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .order-details h4,
+        .payment-instructions h4,
+        .upload-section h4 {
+            margin-bottom: 1rem;
+            color: var(--color-10);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .order-id {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: var(--accent-warm);
+        }
+
+        .product-list {
+            list-style-type: none;
+            margin: 1rem 0;
+        }
+
+        .product-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-list li:last-child {
+            border-bottom: none;
+        }
+
+        .payment-instructions {
+            border-left: 4px solid var(--info);
+        }
+
+        .payment-instructions h4 {
+            color: var(--info);
+        }
+
+        .payment-instructions ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .payment-instructions li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .quick-note {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+        }
+
+        .quick-note p {
+            color: var(--accent-warm);
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .upload-section {
+            border-left: 4px solid var(--success);
+        }
+
+        .upload-section h4 {
+            color: var(--success);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-input:focus {
+            outline: none;
+            border-color: var(--color-10);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .file-info {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+
+        .upload-button {
+            width: 100%;
+            background: var(--color-10);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.9);
+        }
+
+        .upload-button:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Invoice Section */
+        .invoice-section {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+            border-left: 4px solid var(--success);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .invoice-section h4 {
+            margin-bottom: 1rem;
+            color: var(--success);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .invoice-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            margin-top: 1rem;
+        }
+
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            background: #0da271;
+        }
+
+        .back-to-cart {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1.5rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .back-to-cart:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            border-color: var(--color-10);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-10);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-10);
+            transform: translateX(4px);
+        }
+
+        .contact-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--color-10);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--color-10);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Customer Contact Display */
+        .customer-contact-display {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .customer-contact-display h5 {
+            color: var(--color-10);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .customer-contact-display p {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* INVOICE TEMPLATE BARU - SEDERHANA SATU HALAMAN */
+        .invoice-template-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            overflow: auto;
+            padding: 20px;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        .invoice-template {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            color: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .invoice-logo {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+
+        .invoice-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--color-10);
+        }
+
+        .invoice-subtitle {
+            font-size: 16px;
+            color: #64748b;
+        }
+
+        .invoice-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .invoice-info-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .invoice-info-section h3 {
+            color: var(--color-10);
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .invoice-info-section p {
+            margin: 5px 0;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .invoice-table th {
+            background: var(--color-10);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .invoice-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .invoice-total {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .grand-total {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-10);
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+            margin-top: 15px;
+        }
+
+        .proof-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--color-10);
+        }
+
+        .proof-section h3 {
+            text-align: center;
+            color: var(--color-10);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .proof-image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .proof-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+
+        .invoice-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .order-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 992px) {
+
+            .cart-container,
+            .breadcrumb {
+                padding: 0 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .cart-container,
+            .breadcrumb {
+                padding: 0 1rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .item-price {
+                margin: 0;
+                align-self: flex-start;
+            }
+
+            .remove-item {
+                align-self: stretch;
+                justify-content: center;
+            }
+
+            .qris-code {
+                width: 200px;
+                height: 200px;
+            }
+
+            .timer {
+                font-size: 1rem;
+            }
+
+            .total-below-qris .amount {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
+            .donation-options {
+                flex-direction: column;
+            }
+
+            .donation-option {
+                min-width: 100%;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            .invoice-template {
+                padding: 20px;
+            }
+
+            .invoice-info {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .empty-cart {
+                padding: 3rem 1.5rem;
+            }
+
+            .empty-cart-icon {
+                font-size: 4rem;
+            }
+
+            .qris-payment {
+                padding: 1.5rem;
+            }
+
+            .qris-code {
+                width: 180px;
+                height: 180px;
+            }
+
+            .total-below-qris .amount {
+                font-size: 1.8rem;
+            }
+
+            .checkout-button,
+            .upload-button,
+            .back-to-cart {
+                padding: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .invoice-template {
+                padding: 15px;
+            }
+
+            .invoice-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Background Elements -->
+    <div class="bg-gradient"></div>
+    <div class="glowing-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Ryuhuustore Logo">
+                Ryuhuustore
+            </a>
+            <div class="nav-links">
+
+                <a href="index.html">Beranda</a>
+                <a href="tutorial.html">Tutorial</a>
+                <a href="keranjang.html" class="cart-icon">
+                    Keranjang <span class="cart-count">0</span>
+                </a>
+                <a href="#kontak">Kontak</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Beranda</a> > <span>Keranjang Belanja</span>
+    </div>
+
+    <!-- Cart Section -->
+    <section class="cart-container">
+        <h2 class="section-title">Keranjang Belanja</h2>
+
+        <div id="emptyCart" class="empty-cart" style="display: none;">
+            <div class="empty-cart-icon">🛒</div>
+            <h3>Keranjang Anda Kosong</h3>
+            <p>Belum ada produk di keranjang Anda. Yuk, jelajahi produk premium kami dan temukan yang terbaik untuk
+                gaming experience Anda!</p>
+            <a href="index.html" class="continue-shopping">
+                <i class="fas fa-shopping-bag"></i> Lanjutkan Belanja
+            </a>
+        </div>
+
+        <div id="cartContent" class="cart-content" style="display: none;">
+            <div class="cart-items" id="cartItems">
+                <!-- Items akan dimuat di sini oleh JavaScript -->
+            </div>
+
+            <div class="order-summary">
+                <h3>Ringkasan Pesanan</h3>
+                <div class="summary-items" id="summaryItems">
+                    <!-- Ringkasan akan dimuat di sini oleh JavaScript -->
+                </div>
+
+                <!-- Customer Contact Display -->
+                <div id="customerContactDisplay" class="customer-contact-display" style="display: none;">
+                    <h5><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg> Informasi Kontak Pembeli:</h5>
+                    <p id="customerContactText">-</p>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg> Informasi ini akan muncul di invoice PDF
+                    </p>
+                </div>
+
+                <!-- Coupon Section -->
+                <div class="coupon-section">
+                    <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                            <rect x="2" y="7" width="20" height="5"></rect>
+                            <line x1="12" y1="22" x2="12" y2="7"></line>
+                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                        </svg> Punya Kode Diskon?</h4>
+                    <div class="coupon-input">
+                        <input type="text" id="couponCode" placeholder="Masukkan kode diskon Anda" autocomplete="off">
+                        <button type="button" id="applyCoupon" class="apply-coupon">Gunakan</button>
+                    </div>
+                    <div id="couponMessage" class="coupon-message"></div>
+                    <div class="donation-note">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg> Dapatkan kode diskon eksklusif di sosial media kami
+                    </div>
+                </div>
+
+                <!-- Donation Section -->
+                <div class="donation-section">
+                    <h4><i class="fas fa-heart"></i> Berbagi Kebaikan</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Tambahkan donasi untuk membantu sesama yang membutuhkan. Setiap rupiah berarti!
+                    </p>
+                    <div class="donation-options">
+                        <button class="donation-option active" data-amount="0">Rp 0</button>
+                        <button class="donation-option" data-amount="5000">Rp 5K</button>
+                        <button class="donation-option" data-amount="10000">Rp 10K</button>
+                        <button class="donation-option" data-amount="20000">Rp 20K</button>
+                    </div>
+                    <div class="custom-donation">
+                        <input type="number" id="customDonation" placeholder="Nominal lain (Rp)" min="0">
+                        <button type="button" id="applyDonation" class="apply-donation">Pakai</button>
+                    </div>
+                    <div class="donation-note">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg> Donasi akan disalurkan melalui lembaga amal terpercaya
+                    </div>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total:</span>
+                    <span id="totalPrice">Rp 0</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="checkout-button" id="balancePayButton"
+                        style="background: linear-gradient(135deg, #10b981, #059669); border: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        Bayar via Saldo
+                    </button>
+                    <button class="checkout-button" id="checkoutButton">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg> Checkout via QRIS
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QRIS Payment Section -->
+        <div id="qrisPayment" class="qris-payment" style="display: none;">
+            <h3>Pembayaran QRIS</h3>
+            <div class="timer" id="paymentTimer">Batas waktu: 15:00</div>
+            <div class="qris-code">
+                <img src="QRIS.png" alt="QRIS Payment Code">
+            </div>
+
+            <!-- TOTAL HARGA DI BAWAH QRIS -->
+            <div class="total-below-qris">
+                <div class="label">Total Pembayaran</div>
+                <div class="amount" id="qrisTotalDisplay">Rp 0</div>
+            </div>
+
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">Scan QR Code di atas untuk
+                melakukan pembayaran</p>
+
+            <!-- Detail Pesanan -->
+            <div class="order-details">
+                <h4><i class="fas fa-receipt"></i> Detail Pesanan</h4>
+                <div class="order-id">ID Pesanan: <span id="orderId">-</span></div>
+
+                <!-- Customer Contact di Detail Pesanan -->
+                <div class="customer-contact-display" id="qrisCustomerContact" style="margin: 1rem 0;">
+                    <h5><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg> Kontak Pembeli:</h5>
+                    <p id="qrisCustomerContactText">-</p>
+                </div>
+
+                <div>
+                    <strong style="color: var(--text-primary);">Produk yang dibeli:</strong>
+                    <ul class="product-list" id="productList">
+                        <!-- Daftar produk akan dimuat di sini -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="payment-instructions">
+                <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg> Instruksi Pembayaran:</h4>
+                <ol>
+                    <li>Buka aplikasi e-wallet atau mobile banking Anda</li>
+                    <li>Pilih fitur scan QRIS</li>
+                    <li>Arahkan kamera ke QR code di atas</li>
+                    <li>Pastikan nominal pembayaran sesuai</li>
+                    <li>Konfirmasi pembayaran</li>
+                    <li>Upload bukti pembayaran di form di bawah</li>
+                    <li>Download invoice setelah pembayaran terverifikasi</li>
+                    <li>Kirim invoice ke DM Discord, WhatsApp, atau Telegram</li>
+                </ol>
+
+                <div class="quick-note">
+                    <p>📝 <strong>Tidak mau ribet?</strong> Kirim saja screenshot pembayaran Anda ke DM lalu beritahu
+                        produk apa yang dibeli.</p>
+                </div>
+            </div>
+
+            <!-- Upload Bukti Pembayaran Section -->
+            <div class="upload-section">
+                <h4><i class="fas fa-upload"></i> Upload Bukti Pembayaran</h4>
+                <p>Setelah melakukan pembayaran, silakan upload bukti pembayaran Anda untuk verifikasi.</p>
+
+                <form class="upload-form" id="uploadForm">
+                    <div class="form-group">
+                        <label for="paymentProof">Pilih File Bukti Pembayaran:</label>
+                        <input type="file" id="paymentProof" class="file-input" accept=".jpg,.jpeg,.png,.pdf" required>
+                        <div class="file-info">Format yang didukung: JPG, JPEG, PNG, PDF (maks. 5MB)</div>
+                    </div>
+                    <button type="submit" class="upload-button" id="uploadButton">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Bukti Pembayaran
+                    </button>
+                </form>
+            </div>
+
+            <!-- Invoice Section (akan ditampilkan setelah upload bukti) -->
+            <div id="invoiceSection" class="invoice-section" style="display: none;">
+                <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg> ✅ Pembayaran Berhasil Diverifikasi</h4>
+                <p>Terima kasih! Pembayaran Anda telah berhasil diverifikasi. Silakan unduh invoice lalu kirimkan ke
+                    seller Ryuhuu.</p>
+                <button class="download-button" id="downloadInvoice">
+                    <i class="fas fa-download"></i> Download Invoice (PDF)
+                </button>
+                <p class="file-info">Kirimkan invoice ini melalui Discord atau WhatsApp Ryuhuu dalam waktu 1x24 jam.</p>
+            </div>
+
+            <button class="back-to-cart" id="backToCart">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg> Kembali ke Keranjang
+            </button>
+            <button class="back-to-cart" id="cancelOrderButton"
+                style="margin-top: 10px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border-color: #ef4444;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg> Batalkan Pesanan
+            </button>
+        </div>
+    </section>
+
+    <!-- Invoice Template Sederhana - Satu Halaman -->
+    <div id="invoiceTemplateContainer" class="invoice-template-container">
+        <div id="invoiceTemplate" class="invoice-template">
+            <!-- Header Invoice -->
+            <div class="invoice-header">
+                <img src="logo.png" alt="Ryuhuustore Logo" class="invoice-logo">
+                <h1 class="invoice-title">RYUHUUSTORE</h1>
+                <p class="invoice-subtitle">Invoice Pembayaran</p>
+            </div>
+
+            <!-- Informasi Pesanan & Pelanggan -->
+            <div class="invoice-info">
+                <div class="invoice-info-section">
+                    <h3>Informasi Pesanan</h3>
+                    <p><strong>ID Pesanan:</strong> <span id="invoiceOrderId">-</span></p>
+                    <p><strong>Tanggal:</strong> <span id="invoiceDate">-</span></p>
+                    <p><strong>Status:</strong> <span style="color: var(--success); font-weight: bold;">LUNAS</span></p>
+                    <p><strong>Metode Pembayaran:</strong> QRIS</p>
+                </div>
+
+                <div class="invoice-info-section">
+                    <h3>Informasi Pelanggan</h3>
+                    <p><strong>Nama/Telepon:</strong> <span id="invoiceCustomerContact">Pelanggan Ryuhuustore</span></p>
+                    <p><strong>Email:</strong> customer@email.com</p>
+                    <p><strong>Waktu Pembayaran:</strong> <span id="invoiceTime">-</span></p>
+                </div>
+            </div>
+
+            <!-- Daftar Produk -->
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Produk</th>
+                        <th>Durasi</th>
+                        <th>Game</th>
+                        <th>Harga</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    <!-- Items akan dimuat di sini -->
+                </tbody>
+            </table>
+
+            <!-- Ringkasan Harga -->
+            <div class="invoice-total">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="invoiceSubtotal">Rp 0</span>
+                </div>
+                <div class="total-row">
+                    <span>Diskon Khusus:</span>
+                    <span id="invoiceDiscount" style="color: var(--success);">- Rp 0</span>
+                </div>
+                <div class="total-row">
+                    <span>Donasi:</span>
+                    <span id="invoiceDonation" style="color: var(--success);">+ Rp 0</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Pembayaran:</span>
+                    <span id="invoiceGrandTotal" style="color: var(--color-10);">Rp 0</span>
+                </div>
+            </div>
+
+            <!-- Bukti Pembayaran (dalam satu halaman yang sama) -->
+            <div id="proofSection" class="proof-section">
+                <h3>Bukti Pembayaran</h3>
+                <div class="proof-image-container">
+                    <img id="proofImage" class="proof-image" src="" alt="Bukti Pembayaran">
+                </div>
+                <p style="text-align: center; color: #64748b; font-size: 14px;">
+                    <em>Bukti pembayaran ini telah diverifikasi oleh sistem Ryuhuustore</em>
+                </p>
+            </div>
+
+            <!-- Footer Invoice -->
+            <div class="invoice-footer">
+                <p><strong>Terima kasih telah berbelanja di Ryuhuustore! 🎮</strong></p>
+                <p>Invoice ini sah dan dapat digunakan sebagai bukti transaksi.</p>
+                <p>WhatsApp: +62 851-1706-5033 | Telegram: @ryuhuuz | Discord: ryuhuu.</p>
+                <p>Email: ryuhuustore@gmail.com | www.ryuhuustore.com</p>
+                <p style="margin-top: 20px; font-size: 12px; color: #94a3b8;">
+                    Invoice ini dibuat secara otomatis oleh sistem Ryuhuustore pada <span
+                        id="invoiceGeneratedAt">-</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Ryuhuustore</h3>
+                <p>Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen
+                    memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z">
+                            </path>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="12" r="1"></circle>
+                            <circle cx="15" cy="12" r="1"></circle>
+                            <path d="M9 16c1.5 2 3.5 2 5 0"></path>
+                            <path d="M5.5 18c-2-2-3-4-3-7a10 10 0 0 1 19 0c0 3-1 5-3 7"></path>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kategori Game</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#produk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> Genshin Impact</a></li>
+                    <li><a href="index.html#produk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> Wuthering Waves</a></li>
+                    <li><a href="index.html#produk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> Solo Leveling Arise</a></li>
+                    <li><a href="index.html#produk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> Star Rail</a></li>
+                    <li><a href="index.html#produk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> Zenless Zone Zero</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Bantuan</h3>
+                <ul class="footer-links">
+                    <li><a href="tutorial.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg> Cara Pembelian</a></li>
+                    <li><a href="tutorial.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg> Cara Penggunaan</a></li>
+                    <li><a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg> FAQ</a></li>
+                    <li><a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg> Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="mailto:ryuhuustore@gmail.com" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg> ryuhuustore@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285117065033" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z">
+                                </path>
+                            </svg> +62 851-1706-5033
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/ryuhuuz" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg> @ryuhuuz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/1120396377839648780" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="12" r="1"></circle>
+                                <circle cx="15" cy="12" r="1"></circle>
+                                <path d="M9 16c1.5 2 3.5 2 5 0"></path>
+                                <path d="M5.5 18c-2-2-3-4-3-7a10 10 0 0 1 19 0c0 3-1 5-3 7"></path>
+                            </svg> ryuhuu.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 Ryuhuustore. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+        <span id="notification-text">Item berhasil dihapus dari keranjang!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Elements
+            const emptyCart = document.getElementById('emptyCart');
+            const cartContent = document.getElementById('cartContent');
+            const cartItems = document.getElementById('cartItems');
+            const summaryItems = document.getElementById('summaryItems');
+            const totalPrice = document.getElementById('totalPrice');
+            const checkoutButton = document.getElementById('checkoutButton');
+            const qrisPayment = document.getElementById('qrisPayment');
+            const qrisTotalDisplay = document.getElementById('qrisTotalDisplay');
+            const backToCart = document.getElementById('backToCart');
+            const cartCount = document.querySelector('.cart-count');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            const paymentTimer = document.getElementById('paymentTimer');
+            const orderId = document.getElementById('orderId');
+            const productList = document.getElementById('productList');
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadButton = document.getElementById('uploadButton');
+            const paymentProof = document.getElementById('paymentProof');
+            const invoiceSection = document.getElementById('invoiceSection');
+            const downloadInvoice = document.getElementById('downloadInvoice');
+            const couponCode = document.getElementById('couponCode');
+            const applyCoupon = document.getElementById('applyCoupon');
+            const couponMessage = document.getElementById('couponMessage');
+            const donationOptions = document.querySelectorAll('.donation-option');
+            const customDonation = document.getElementById('customDonation');
+            const applyDonation = document.getElementById('applyDonation');
+            const customerContactText = document.getElementById('customerContactText');
+            const qrisCustomerContactText = document.getElementById('qrisCustomerContactText');
+            const balancePayButton = document.getElementById('balancePayButton');
+            const cancelOrderButton = document.getElementById('cancelOrderButton');
+
+            // Invoice elements
+            const invoiceTemplateContainer = document.getElementById('invoiceTemplateContainer');
+            const invoiceOrderId = document.getElementById('invoiceOrderId');
+            const invoiceDate = document.getElementById('invoiceDate');
+            const invoiceTime = document.getElementById('invoiceTime');
+            const invoiceCustomerContact = document.getElementById('invoiceCustomerContact');
+            const invoiceItems = document.getElementById('invoiceItems');
+            const invoiceGeneratedAt = document.getElementById('invoiceGeneratedAt');
+            const invoiceSubtotal = document.getElementById('invoiceSubtotal');
+            const invoiceDiscount = document.getElementById('invoiceDiscount');
+            const invoiceDonation = document.getElementById('invoiceDonation');
+            const invoiceGrandTotal = document.getElementById('invoiceGrandTotal');
+            const proofImage = document.getElementById('proofImage');
+            const proofSection = document.getElementById('proofSection');
+
+            // Timer variables
+            let countdown;
+            let timeLeft = 15 * 60;
+            let currentOrderData = null;
+            let currentPaymentProof = null;
+            let currentDiscountAmount = 0;
+            let currentDonation = 0;
+
+            // Kode kupon valid
+            const validCoupons = {
+                'NEW2026': 0.05,
+            };
+
+            // Generate random order ID
+            function generateOrderId() {
+                const s = () => Math.random().toString(36).substring(2, 6).toUpperCase();
+                return `ryuuhu-${s()}-${s()}-${s()}`;
+            }
+
+            // Get cart from localStorage
+            function getCart() {
+                try {
+                    const cartData = localStorage.getItem('cart');
+                    if (!cartData) return [];
+                    const parsedCart = JSON.parse(cartData);
+                    return Array.isArray(parsedCart) ? parsedCart : [];
+                } catch (error) {
+                    console.error('Error reading cart:', error);
+                    return [];
+                }
+            }
+
+            // Update cart count
+            function updateCartCount() {
+                const cart = getCart();
+                cartCount.textContent = cart.length;
+            }
+
+            // Show notification
+            function showNotification(message, type = 'success') {
+                notificationText.textContent = message;
+                notification.style.background = type === 'success' ? 'var(--success)' : 'var(--danger)';
+                notification.classList.add('show');
+
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+
+            // Format currency
+            function formatCurrency(amount) {
+                return 'Rp ' + amount.toLocaleString('id-ID');
+            }
+
+            // Get customer contact from cart items
+            function getCustomerContact() {
+                const cart = getCart();
+                if (cart.length === 0) return 'Belum ada informasi kontak';
+                const contact = cart[0]?.contact;
+                return contact || 'Belum ada informasi kontak';
+            }
+
+            // Update customer contact display
+            function updateCustomerContactDisplay() {
+                const contact = getCustomerContact();
+                if (contact && contact !== 'Belum ada informasi kontak') {
+                    customerContactText.textContent = contact;
+                    customerContactDisplay.style.display = 'block';
+                } else {
+                    customerContactDisplay.style.display = 'none';
+                }
+            }
+
+            // Render cart items
+            function renderCart() {
+                const cart = getCart();
+
+                if (cart.length === 0) {
+                    emptyCart.style.display = 'block';
+                    cartContent.style.display = 'none';
+                    checkoutButton.disabled = true;
+                    customerContactDisplay.style.display = 'none';
+                } else {
+                    emptyCart.style.display = 'none';
+                    cartContent.style.display = 'grid';
+                    checkoutButton.disabled = false;
+
+                    // Update customer contact display
+                    updateCustomerContactDisplay();
+
+                    // Clear existing items
+                    cartItems.innerHTML = '';
+
+                    // Render each cart item
+                    cart.forEach((item, index) => {
+                        const itemPrice = parseInt(item.price) || 0;
+
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.innerHTML = `
+                            <div class="item-info">
+                                <div class="item-name">${item.product || 'Unknown Product'}</div>
+                                <div class="item-details">
+                                    <span>${item.duration || 'Unknown Duration'}</span>
+                                    <span>${item.game || 'Unknown Game'}</span>
+                                    <span>${item.contact || 'No Contact'}</span>
+                                </div>
+                            </div>
+                            <div class="item-price">${formatCurrency(itemPrice)}</div>
+                            <button class="remove-item" data-index="${index}">
+                                <i class="fas fa-trash"></i> Hapus
+                            </button>
+                        `;
+                        cartItems.appendChild(cartItem);
+                    });
+
+                    // Update order summary
+                    updateOrderSummary();
+                }
+
+                updateCartCount();
+            }
+
+            // Update order summary with discount and donation
+            function updateOrderSummary() {
+                const cart = getCart();
+                let subtotal = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
+
+                let discountAmount = currentDiscountAmount || 0;
+                let donationAmount = currentDonation;
+                let grandTotal = subtotal - discountAmount + donationAmount;
+
+                if (grandTotal < 0) grandTotal = 0;
+
+                // Update summary items
+                summaryItems.innerHTML = '';
+
+                // Add subtotal
+                const subtotalEl = document.createElement('div');
+                subtotalEl.className = 'summary-item';
+                subtotalEl.innerHTML = `
+                    <span>Subtotal</span>
+                    <span>${formatCurrency(subtotal)}</span>
+                `;
+                summaryItems.appendChild(subtotalEl);
+
+                // Add discount if any
+                if (discountAmount > 0) {
+                    const discountEl = document.createElement('div');
+                    discountEl.className = 'summary-item';
+                    discountEl.innerHTML = `
+                        <span>Diskon Khusus</span>
+                        <span style="color: var(--success);">- ${formatCurrency(discountAmount)}</span>
+                    `;
+                    summaryItems.appendChild(discountEl);
+                }
+
+                // Add donation if any
+                if (donationAmount > 0) {
+                    const donationEl = document.createElement('div');
+                    donationEl.className = 'summary-item';
+                    donationEl.innerHTML = `
+                        <span>Donasi</span>
+                        <span style="color: var(--success);">+ ${formatCurrency(donationAmount)}</span>
+                    `;
+                    summaryItems.appendChild(donationEl);
+                }
+
+                // Update grand total
+                totalPrice.textContent = formatCurrency(grandTotal);
+
+                return {
+                    subtotal,
+                    discountAmount,
+                    donationAmount,
+                    grandTotal
+                };
+            }
+
+            // Remove item from cart
+            function removeItem(index) {
+                const cart = getCart();
+                if (index >= 0 && index < cart.length) {
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                    showNotification('Item berhasil dihapus dari keranjang!');
+                }
+            }
+
+            // Start payment timer
+            function startTimer() {
+                clearInterval(countdown);
+                timeLeft = 15 * 60;
+
+                countdown = setInterval(() => {
+                    const minutes = Math.floor(timeLeft / 60);
+                    const seconds = timeLeft % 60;
+
+                    paymentTimer.textContent = `Batas waktu: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                    if (timeLeft <= 0) {
+                        clearInterval(countdown);
+                        paymentTimer.textContent = 'Waktu pembayaran telah habis';
+                        paymentTimer.style.color = 'var(--danger)';
+                        uploadButton.disabled = true;
+                        uploadButton.textContent = 'Waktu Pembayaran Habis';
+                    } else {
+                        timeLeft--;
+                    }
+                }, 1000);
+            }
+
+            // Apply coupon code
+            function applyCouponCode() {
+                const code = couponCode.value.trim().toUpperCase();
+
+                if (!code) {
+                    couponMessage.textContent = 'Silakan masukkan kode diskon yang Anda miliki';
+                    couponMessage.className = 'coupon-message coupon-error';
+                    return;
+                }
+
+                if (validCoupons.hasOwnProperty(code)) {
+                    const cart = getCart();
+                    const subtotal = cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
+                    const discountPercentage = validCoupons[code];
+                    currentDiscountAmount = Math.round(subtotal * discountPercentage);
+
+                    couponMessage.textContent = `Kode ${code} berhasil diterapkan! Diskon ${(discountPercentage * 100)}% (${formatCurrency(currentDiscountAmount)})`;
+                    couponMessage.className = 'coupon-message coupon-success';
+                    showNotification(`Diskon ${(discountPercentage * 100)}% senilai ${formatCurrency(currentDiscountAmount)} berhasil diterapkan!`, 'success');
+
+                    updateOrderSummary();
+                } else {
+                    currentDiscountAmount = 0;
+                    couponMessage.textContent = 'Kode diskon tidak valid.';
+                    couponMessage.className = 'coupon-message coupon-error';
+                    updateOrderSummary();
+                    showNotification('Kode diskon tidak valid', 'error');
+                }
+            }
+
+            // Apply donation
+            function applyDonationAmount(amount) {
+                currentDonation = amount;
+
+                donationOptions.forEach(option => {
+                    const optionAmount = parseInt(option.getAttribute('data-amount'));
+                    if (optionAmount === amount) {
+                        option.classList.add('active');
+                    } else {
+                        option.classList.remove('active');
+                    }
+                });
+
+                updateOrderSummary();
+
+                if (amount > 0) {
+                    showNotification(`Terima kasih atas donasi Rp ${amount.toLocaleString('id-ID')}!`, 'success');
+                }
+            }
+
+            // Setup invoice data
+            async function setupInvoiceData() {
+                const now = new Date();
+                const dateString = now.toLocaleDateString('id-ID', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                const timeString = now.toLocaleTimeString('id-ID');
+                const generatedAt = now.toLocaleString('id-ID');
+
+                // Set invoice data
+                invoiceOrderId.textContent = currentOrderData.orderId;
+                invoiceDate.textContent = dateString;
+                invoiceTime.textContent = timeString;
+                invoiceGeneratedAt.textContent = generatedAt;
+
+                // Set customer contact from order data
+                const customerContact = currentOrderData?.customerContact || 'Pelanggan Ryuhuustore';
+                invoiceCustomerContact.textContent = customerContact;
+
+                // Clear and populate invoice items
+                invoiceItems.innerHTML = '';
+                currentOrderData.cart.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item.product}</td>
+                        <td>${item.duration}</td>
+                        <td>${item.game}</td>
+                        <td>${formatCurrency(item.price)}</td>
+                    `;
+                    invoiceItems.appendChild(row);
+                });
+
+                // Calculate totals for invoice
+                const subtotal = currentOrderData.cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
+                const discountAmount = currentOrderData.discountAmount || 0;
+                const donationAmount = currentOrderData.donationAmount || 0;
+                const grandTotal = subtotal - discountAmount + donationAmount;
+
+                invoiceSubtotal.textContent = formatCurrency(subtotal);
+
+                if (discountAmount > 0) {
+                    invoiceDiscount.textContent = `- ${formatCurrency(discountAmount)}`;
+                } else {
+                    invoiceDiscount.textContent = `- Rp 0`;
+                }
+
+                invoiceDonation.textContent = `+ ${formatCurrency(donationAmount)}`;
+                invoiceGrandTotal.textContent = formatCurrency(grandTotal);
+
+                // Set bukti pembayaran jika ada
+                if (currentPaymentProof) {
+                    proofImage.src = currentPaymentProof;
+                    proofSection.style.display = 'block';
+                } else {
+                    proofSection.style.display = 'none';
+                }
+            }
+
+            // Generate PDF Single Page
+            async function generatePDFSinglePage() {
+                try {
+                    // Tampilkan loading state
+                    downloadInvoice.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Membuat PDF...';
+                    downloadInvoice.disabled = true;
+
+                    // Setup invoice data
+                    await setupInvoiceData();
+
+                    // Tampilkan template invoice
+                    invoiceTemplateContainer.style.display = 'block';
+
+                    // Tunggu sebentar agar DOM dirender
+                    await new Promise(resolve => setTimeout(resolve, 800));
+
+                    // Generate PDF
+                    const { jsPDF } = window.jspdf;
+
+                    // Buat PDF dengan orientasi portrait
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+
+                    // Set font
+                    pdf.setFont('helvetica');
+
+                    // Header
+                    pdf.setFontSize(24);
+                    pdf.setTextColor(139, 92, 246);
+                    pdf.text('RYUHUUSTORE', 105, 20, { align: 'center' });
+
+                    pdf.setFontSize(16);
+                    pdf.setTextColor(100, 116, 139);
+                    pdf.text('Invoice Pembayaran', 105, 30, { align: 'center' });
+
+                    // Garis pemisah
+                    pdf.setDrawColor(139, 92, 246);
+                    pdf.setLineWidth(0.5);
+                    pdf.line(20, 35, 190, 35);
+
+                    // Informasi Pesanan
+                    let yPos = 45;
+
+                    // ID Pesanan
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(30, 41, 59);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('ID Pesanan:', 20, yPos);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text(currentOrderData.orderId, 60, yPos);
+
+                    // Tanggal
+                    yPos += 8;
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Tanggal:', 20, yPos);
+                    pdf.setFont(undefined, 'normal');
+                    const now = new Date();
+                    pdf.text(now.toLocaleDateString('id-ID'), 60, yPos);
+
+                    // Kontak Pelanggan
+                    yPos += 8;
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Kontak:', 20, yPos);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.text(currentOrderData.customerContact || 'Pelanggan Ryuhuustore', 60, yPos);
+
+                    // Status
+                    yPos += 8;
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text('Status:', 20, yPos);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setTextColor(16, 185, 129);
+                    pdf.text('LUNAS', 60, yPos);
+                    pdf.setTextColor(30, 41, 59);
+
+                    // Daftar Produk
+                    yPos += 15;
+                    pdf.setFontSize(14);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setTextColor(139, 92, 246);
+                    pdf.text('Produk yang Dibeli', 20, yPos);
+
+                    // Header tabel
+                    yPos += 10;
+                    pdf.setFillColor(139, 92, 246);
+                    pdf.setTextColor(255, 255, 255);
+                    pdf.rect(20, yPos - 5, 170, 8, 'F');
+
+                    pdf.setFontSize(11);
+                    pdf.text('No', 25, yPos);
+                    pdf.text('Produk', 40, yPos);
+                    pdf.text('Durasi', 100, yPos);
+                    pdf.text('Harga', 150, yPos);
+
+                    // Data produk
+                    pdf.setTextColor(30, 41, 59);
+                    currentOrderData.cart.forEach((item, index) => {
+                        yPos += 8;
+                        pdf.text((index + 1).toString(), 25, yPos);
+                        pdf.text(item.product, 40, yPos);
+                        pdf.text(item.duration, 100, yPos);
+                        pdf.text(formatCurrency(item.price), 150, yPos);
+                    });
+
+                    // Ringkasan Pembayaran
+                    yPos += 15;
+                    pdf.setFontSize(14);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setTextColor(139, 92, 246);
+                    pdf.text('Ringkasan Pembayaran', 20, yPos);
+
+                    // Hitung total
+                    const subtotal = currentOrderData.cart.reduce((sum, item) => sum + (parseInt(item.price) || 0), 0);
+                    const discountAmount = currentOrderData.discountAmount || 0;
+                    const donationAmount = currentOrderData.donationAmount || 0;
+                    const grandTotal = subtotal - discountAmount + donationAmount;
+
+                    yPos += 10;
+                    pdf.setFontSize(11);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setTextColor(30, 41, 59);
+
+                    pdf.text('Subtotal:', 20, yPos);
+                    pdf.text(formatCurrency(subtotal), 160, yPos, { align: 'right' });
+
+                    if (discountAmount > 0) {
+                        yPos += 7;
+                        pdf.text('Diskon Khusus:', 20, yPos);
+                        pdf.setTextColor(16, 185, 129);
+                        pdf.text(`- ${formatCurrency(discountAmount)}`, 160, yPos, { align: 'right' });
+                        pdf.setTextColor(30, 41, 59);
+                    }
+
+                    if (donationAmount > 0) {
+                        yPos += 7;
+                        pdf.text('Donasi:', 20, yPos);
+                        pdf.setTextColor(16, 185, 129);
+                        pdf.text(`+ ${formatCurrency(donationAmount)}`, 160, yPos, { align: 'right' });
+                        pdf.setTextColor(30, 41, 59);
+                    }
+
+                    // Garis pemisah total
+                    yPos += 10;
+                    pdf.setDrawColor(226, 232, 240);
+                    pdf.setLineWidth(0.5);
+                    pdf.line(20, yPos, 190, yPos);
+
+                    // Total
+                    yPos += 12;
+                    pdf.setFontSize(16);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.setTextColor(139, 92, 246);
+                    pdf.text('Total Pembayaran:', 20, yPos);
+                    pdf.text(formatCurrency(grandTotal), 160, yPos, { align: 'right' });
+
+                    // Informasi Kontak
+                    yPos += 20;
+                    pdf.setFontSize(10);
+                    pdf.setFont(undefined, 'normal');
+                    pdf.setTextColor(100, 116, 139);
+
+                    pdf.text('Terima kasih telah berbelanja di Ryuhuustore! 🎮', 105, yPos, { align: 'center' });
+
+                    yPos += 6;
+                    pdf.text('WhatsApp: +62 851-1706-5033 | Telegram: @ryuhuuz | Discord: ryuhuu.', 105, yPos, { align: 'center' });
+
+                    yPos += 6;
+                    pdf.text('Email: ryuhuustore@gmail.com | www.ryuhuustore.com', 105, yPos, { align: 'center' });
+
+                    yPos += 10;
+                    pdf.setFontSize(9);
+                    pdf.text(`Invoice dibuat otomatis pada ${now.toLocaleString('id-ID')}`, 105, yPos, { align: 'center' });
+
+                    // Tambahkan halaman baru untuk bukti pembayaran jika ada
+                    if (currentPaymentProof) {
+                        pdf.addPage();
+
+                        // Header bukti pembayaran
+                        pdf.setFontSize(16);
+                        pdf.setFont(undefined, 'bold');
+                        pdf.setTextColor(139, 92, 246);
+                        pdf.text('Bukti Pembayaran', 105, 20, { align: 'center' });
+
+                        // Tambahkan gambar bukti pembayaran
+                        try {
+                            // Buat elemen image untuk canvas
+                            const img = new Image();
+                            img.src = currentPaymentProof;
+
+                            await new Promise((resolve) => {
+                                img.onload = resolve;
+                            });
+
+                            // Hitung dimensi gambar untuk A4
+                            const maxWidth = 170;
+                            const maxHeight = 120;
+                            let imgWidth = img.width;
+                            let imgHeight = img.height;
+
+                            // Scale gambar jika terlalu besar
+                            if (imgWidth > maxWidth) {
+                                const ratio = maxWidth / imgWidth;
+                                imgWidth = maxWidth;
+                                imgHeight = imgHeight * ratio;
+                            }
+
+                            if (imgHeight > maxHeight) {
+                                const ratio = maxHeight / imgHeight;
+                                imgHeight = maxHeight;
+                                imgWidth = imgWidth * ratio;
+                            }
+
+                            // Hitung posisi tengah
+                            const xPos = (210 - imgWidth) / 2;
+
+                            // Tambahkan gambar ke PDF
+                            pdf.addImage(img, 'JPEG', xPos, 40, imgWidth, imgHeight);
+
+                            pdf.setFontSize(12);
+                            pdf.setTextColor(100, 116, 139);
+                            pdf.text('Bukti pembayaran telah diverifikasi', 105, 170, { align: 'center' });
+                        } catch (error) {
+                            console.error('Gagal menambahkan gambar bukti pembayaran:', error);
+                            pdf.text('[Gambar bukti pembayaran]', 105, 80, { align: 'center' });
+                        }
+                    }
+
+                    // Simpan PDF
+                    pdf.save(`invoice-${currentOrderData.orderId}.pdf`);
+
+                    // Sembunyikan template
+                    invoiceTemplateContainer.style.display = 'none';
+
+                    showNotification('Invoice berhasil diunduh!');
+
+                } catch (error) {
+                    console.error('Error generating PDF:', error);
+                    alert('Gagal membuat PDF. Silakan coba lagi.');
+                } finally {
+                    // Reset tombol
+                    downloadInvoice.innerHTML = '<i class="fas fa-download"></i> Download Invoice (PDF)';
+                    downloadInvoice.disabled = false;
+                    invoiceTemplateContainer.style.display = 'none';
+                }
+            }
+
+            // Simulate file upload and generate invoice
+            function handleUpload(event) {
+                event.preventDefault();
+
+                const file = paymentProof.files[0];
+                if (!file) {
+                    alert('Silakan pilih file bukti pembayaran!');
+                    return;
+                }
+
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File terlalu besar! Maksimal 5MB.');
+                    return;
+                }
+
+                // Check file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Format file tidak didukung! Gunakan JPG, PNG, atau PDF.');
+                    return;
+                }
+
+                // Simulate upload process
+                uploadButton.disabled = true;
+                uploadButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengupload...';
+
+                // Read the file as Data URL untuk bukti pembayaran
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    currentPaymentProof = e.target.result;
+
+                    // Simulate successful upload after a delay
+                    setTimeout(() => {
+                        uploadButton.innerHTML = '<i class="fas fa-check"></i> Upload Berhasil';
+                        showNotification('Bukti pembayaran berhasil diupload!');
+
+                        // Show invoice section
+                        invoiceSection.style.display = 'block';
+
+                        // Stop the timer
+                        clearInterval(countdown);
+                        paymentTimer.textContent = 'Pembayaran Terverifikasi';
+                        paymentTimer.style.color = 'var(--success)';
+
+                        // Scroll to invoice section
+                        invoiceSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 2000);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Checkout functionality
+            checkoutButton.addEventListener('click', function () {
+                const cart = getCart();
+                if (cart.length === 0) return;
+
+                // Get customer contact from cart
+                const customerContact = getCustomerContact();
+
+                // Calculate total
+                const totals = updateOrderSummary();
+                qrisTotalDisplay.textContent = formatCurrency(totals.grandTotal);
+
+                // Generate and display order ID
+                const newOrderId = generateOrderId();
+                orderId.textContent = newOrderId;
+
+                // Store order data for invoice generation
+                currentOrderData = {
+                    orderId: newOrderId,
+                    cart: [...cart],
+                    discountAmount: totals.discountAmount,
+                    donationAmount: totals.donationAmount,
+                    customerContact: customerContact
+                };
+
+                // Reset payment proof
+                currentPaymentProof = null;
+
+                // Display customer contact in QRIS section
+                qrisCustomerContactText.textContent = customerContact;
+
+                // Display product list
+                productList.innerHTML = '';
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${item.product || 'Unknown Product'} (${item.duration || 'Unknown Duration'})</span>
+                        <span>${formatCurrency(parseInt(item.price) || 0)}</span>
+                    `;
+                    productList.appendChild(li);
+                });
+
+                // Show QRIS payment section
+                cartContent.style.display = 'none';
+                qrisPayment.style.display = 'block';
+
+                // Reset upload form and invoice section
+                uploadForm.reset();
+                invoiceSection.style.display = 'none';
+                uploadButton.disabled = false;
+                uploadButton.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload Bukti Pembayaran';
+
+                // Start timer
+                startTimer();
+
+                // Scroll to payment section
+                qrisPayment.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Back to cart functionality
+            backToCart.addEventListener('click', function () {
+                qrisPayment.style.display = 'none';
+                cartContent.style.display = 'grid';
+                clearInterval(countdown);
+                renderCart();
+            });
+
+            // Upload form submission
+            uploadForm.addEventListener('submit', handleUpload);
+
+            // Cancel Order
+            cancelOrderButton.addEventListener('click', function () {
+                if (confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')) {
+                    qrisPayment.style.display = 'none';
+                    cartContent.style.display = 'grid';
+                    clearInterval(countdown);
+                    if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Pesanan dibatalkan', 'info');
+                }
+            });
+
+            // Pay via Balance
+            balancePayButton.addEventListener('click', function () {
+                const total = updateOrderSummary().grandTotal;
+                if (total <= 0) return;
+
+                const user = getCurrentUser();
+                if (!user) {
+                    if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Harap login terlebih dahulu', 'error');
+                    return;
+                }
+
+                if ((user.balance || 0) < total) {
+                    if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Saldo tidak mencukupi. Harap isi saldo terlebih dahulu.', 'error');
+                    window.location.href = 'globalpayment.html';
+                    return;
+                }
+
+                if (confirm(`Bayar pesanan sebesar Rp ${total.toLocaleString('id-ID')} menggunakan saldo?`)) {
+                    try {
+                        deductUserBalance(total);
+
+                        // Save to order history with full details
+                        const totals = updateOrderSummary();
+                        const history = JSON.parse(localStorage.getItem('ryuhuu_order_history')) || [];
+                        history.push({
+                            id: generateOrderId(),
+                            email: user.email,
+                            date: new Date().toISOString(),
+                            total: totals.grandTotal,
+                            subtotal: totals.subtotal,
+                            discount: totals.discountAmount,
+                            donation: totals.donationAmount,
+                            items: [...getCart()]
+                        });
+                        localStorage.setItem('ryuhuu_order_history', JSON.stringify(history));
+
+                        localStorage.removeItem('cart');
+                        if (typeof ryuhuu_notify === 'function') ryuhuu_notify('Pembayaran Sukses via Saldo!', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } catch (err) {
+                        alert(err.message);
+                    }
+                }
+            });
+
+            // Download invoice functionality
+            downloadInvoice.addEventListener('click', function () {
+                if (currentOrderData) {
+                    generatePDFSinglePage();
+                } else {
+                    alert('Data pesanan tidak ditemukan. Silakan lakukan checkout ulang.');
+                }
+            });
+
+            // Apply coupon button
+            applyCoupon.addEventListener('click', applyCouponCode);
+
+            // Enter key for coupon
+            couponCode.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyCouponCode();
+                }
+            });
+
+            // Donation options
+            donationOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    const amount = parseInt(this.getAttribute('data-amount'));
+                    applyDonationAmount(amount);
+                });
+            });
+
+            // Custom donation
+            applyDonation.addEventListener('click', function () {
+                const amount = parseInt(customDonation.value) || 0;
+                if (amount < 0) {
+                    showNotification('Nominal donasi tidak valid', 'error');
+                    return;
+                }
+                applyDonationAmount(amount);
+                customDonation.value = '';
+            });
+
+            // Event delegation for remove buttons
+            document.addEventListener('click', function (e) {
+                if (e.target.classList.contains('remove-item') || e.target.closest('.remove-item')) {
+                    const button = e.target.classList.contains('remove-item') ? e.target : e.target.closest('.remove-item');
+                    const index = parseInt(button.getAttribute('data-index'));
+                    removeItem(index);
+                }
+            });
+
+            // Initialize
+            renderCart();
+            updateCartCount();
+        });
+    </script>
+    <script src="ui.js"></script>
+    <script src="auth.js"></script>
+    <script src="security.js"></script>
+</body>
+
+</html>

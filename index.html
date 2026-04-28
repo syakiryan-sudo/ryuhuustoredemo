@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryuhuustore - Top Up Game Terpercaya</title>
+    <style>
+        :root {
+            /* Rumus Warna 60-30-10 Elegan */
+            --color-60: #0f172a;
+            /* 60%: Background utama - Navy Blue Elegant */
+            --color-30: #1e293b;
+            /* 30%: Konten & Kartu - Slate Blue */
+            --color-10: #8b5cf6;
+            /* 10%: Aksen & Call-to-Action - Vibrant Purple */
+
+            /* Warna Pendukung Elegant */
+            --accent-secondary: #ec4899;
+            /* Pink untuk highlight */
+            --accent-warm: #f59e0b;
+            /* Gold untuk rating & harga */
+            --success: #10b981;
+            /* Emerald untuk sukses */
+            --warning: #f97316;
+            /* Orange untuk perhatian */
+            --info: #3b82f6;
+            /* Blue untuk info */
+            --muted: #6b7280;
+            /* Gray untuk coming soon */
+
+            /* Warna Teks */
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+
+            /* Border & Effects */
+            --border-color: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 20px 40px -10px rgba(139, 92, 246, 0.25);
+
+            /* Animations */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-60);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Background Elegant */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, var(--color-60) 0%, #111827 100%);
+        }
+
+        /* Glowing Orbs */
+        .glowing-orbs {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--color-10);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            top: 40%;
+            right: -100px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent-warm);
+            bottom: -50px;
+            left: 30%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Payment Notifications - Gen-Z Style */
+        .payment-notifications {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 320px;
+        }
+
+        .payment-notification {
+            background: var(--color-30);
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--card-shadow);
+            animation: slideInRight 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-notification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--color-10);
+        }
+
+        .payment-notification.en::before {
+            background: var(--info);
+        }
+
+        .close-notification {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text-muted);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: var(--transition);
+        }
+
+        .close-notification:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .notification-icon {
+            background: rgba(139, 92, 246, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-10);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .notification-icon.en {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--info);
+        }
+
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-text p {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .notification-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            color: var(--color-10);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .notification-cta:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateX(4px);
+            border-color: rgba(139, 92, 246, 0.4);
+        }
+
+        .notification-cta.en {
+            color: var(--info);
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .notification-cta.en:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Header Elegant */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.3));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.auth-trigger {
+            background: linear-gradient(135deg, var(--color-10), #818cf8);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a.auth-trigger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-10);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-secondary);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Hero Section - Ultra Elegant */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-10);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            padding: 1rem 2.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--color-10);
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.9);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-10);
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Language Selector */
+        .language-selector {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .lang-btn {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lang-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+        }
+
+        .lang-btn:hover::before {
+            animation: shine 1.5s infinite;
+        }
+
+        .lang-btn.active {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--color-10);
+            color: var(--text-primary);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
+        }
+
+        @keyframes shine {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Features Section - PERKECIL & LEBIH ELEGANT */
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-10), var(--accent-secondary));
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--color-30);
+            border-radius: 14px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(139, 92, 246, 0.03), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--color-10);
+            box-shadow: 0 15px 30px -5px rgba(139, 92, 246, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-10);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(139, 92, 246, 0.2);
+            transform: scale(1.05);
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Category Tabs dengan Icon - UPDATED */
+        .category-tabs {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+            padding: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .category-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Icon untuk setiap kategori game */
+        .category-tab[data-category="all"]::before {
+            content: '🎮';
+            font-size: 1.1rem;
+        }
+
+        .category-tab[data-category="genshin"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/genshin-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="wuthering"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/wuthering-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="solo"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/solo-leveling-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="star-rail"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/star-rail-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="zenless"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/zenless-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="marvel"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/marvel-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="gta"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/gta-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="duet"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/duet-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="where-winds"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/where-winds-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="stella"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/stella-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="blue"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/blue-archive-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="crystal"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/crystal-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="ethernia"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/ethernia-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab[data-category="gfl2"]::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-image: url('icons/gfl2-icon.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .category-tab:hover {
+            color: var(--text-primary);
+            border-color: var(--color-10);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .category-tab.active {
+            background: var(--color-10);
+            color: white;
+            border-color: var(--color-10);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .category-tab.active::before {
+            filter: brightness(0) invert(1);
+        }
+
+        /* PRODUCTS GRID - OPTIMIZED FOR 5 CARDS PER ROW */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            /* 5 cards per row */
+            gap: 1.2rem;
+        }
+
+        .product-card {
+            background: var(--color-30);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-10);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .badge-popular {
+            background: var(--color-10);
+            color: white;
+        }
+
+        .badge-coming-soon {
+            background: var(--muted);
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .product-image {
+            height: 140px;
+            /* Reduced height */
+            background: linear-gradient(135deg, var(--color-60) 0%, var(--color-30) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .product-image img {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-content {
+            padding: 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: var(--color-10);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 1px;
+        }
+
+        .stars .fa-star,
+        .stars .fa-star-half-alt {
+            color: var(--accent-warm);
+            font-size: 0.8rem;
+        }
+
+        .stars .fa-star-o {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .rating-value {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Harga dihapus */
+
+        .product-features {
+            list-style: none;
+            margin: 0.8rem 0;
+            flex-grow: 1;
+        }
+
+        .product-features li {
+            display: flex;
+            align-items: center;
+            padding: 0.3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .product-features li::before {
+            content: '✓';
+            color: var(--success);
+            margin-right: 0.4rem;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+
+        .product-footer {
+            margin-top: auto;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: center;
+            /* Pusatkan tombol */
+        }
+
+        .btn-view {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-10);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            white-space: nowrap;
+            width: 100%;
+            /* Lebar penuh */
+            text-align: center;
+        }
+
+        .btn-view:hover {
+            background: rgba(139, 92, 246, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-container {
+            position: relative;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .testimonials-track {
+            display: flex;
+            gap: 2rem;
+            animation: scrollTestimonials 40s linear infinite;
+        }
+
+        .testimonial-card {
+            background: var(--color-30);
+            border-radius: 16px;
+            padding: 2rem;
+            min-width: 300px;
+            border: 1px solid var(--border-color);
+        }
+
+        .testimonial-rating {
+            color: var(--accent-warm);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-10), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @keyframes scrollTestimonials {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-300px * 8 - 2rem * 8));
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-10);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-10);
+            transform: translateX(4px);
+        }
+
+        .contact-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-link:hover {
+            color: var(--color-10);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--color-30);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--color-10);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE DESIGN - OPTIMIZED FOR MORE CARDS */
+        @media (max-width: 1400px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                /* 4 cards per row */
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                /* 3 cards per row */
+            }
+
+            .product-image {
+                height: 130px;
+                padding: 1.2rem;
+            }
+
+            .product-content {
+                padding: 1rem;
+            }
+
+            .product-name {
+                font-size: 0.95rem;
+            }
+
+            /* Features section responsive */
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.2rem;
+            }
+
+            .feature-card {
+                padding: 1.2rem;
+            }
+
+            .feature-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1rem;
+            }
+
+            .feature-card p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 cards per row */
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            /* Features untuk tablet */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .category-tabs {
+                justify-content: flex-start;
+            }
+
+            .payment-notifications {
+                top: 80px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+
+            .testimonial-card {
+                min-width: 280px;
+            }
+
+            @keyframes scrollTestimonials {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(-280px * 8 - 2rem * 8));
+                }
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .product-image {
+                height: 150px;
+            }
+
+            .product-content {
+                padding: 1.2rem;
+            }
+
+            .product-name {
+                font-size: 1.1rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features,
+            .products-section,
+            .testimonials {
+                padding: 4rem 1rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
+            .language-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .lang-btn {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .category-tabs {
+                gap: 0.5rem;
+            }
+
+            .category-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .category-tab::before {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body data-lang="id">
+    <!-- Background Elements -->
+    <div class="bg-gradient"></div>
+    <div class="glowing-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Gen-Z Notifications -->
+    <div class="payment-notifications">
+        <div class="payment-notification active" id="notification-id">
+            <button class="close-notification" onclick="hideNotification('id')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="notification-content">
+                <div class="notification-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </div>
+                <div class="notification-text">
+                    <p>Gas bang! 🚀 QRIS tersedia nih buat kalian yang pengen transaksi lebih cepet!</p>
+                    <a href="#" class="notification-cta">
+                        <span>Klik sini buat bayar pake QRIS</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-notification en" id="notification-en" style="display: none;">
+            <button class="close-notification" onclick="hideNotification('en')">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="notification-content">
+                <div class="notification-icon en">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="notification-text">
+                    <p>Hey gamers! 🎮 PayPal, Crypto & Cards ready for you!</p>
+                    <a href="globalpayment.html" class="notification-cta en">
+                        <span>Click here for global payments</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header - LOGO TETAP MENGGUNAKAN logo.png -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <!-- LOGO ASLI TIDAK DIUBAH -->
+                <img src="logo.png" alt="Ryuhuustore Logo">
+                Ryuhuustore
+            </a>
+            <div class="nav-links">
+                <!-- Auth menu will be injected here by auth.js -->
+                <a href="index.html">Beranda</a>
+                <a href="tutorial.html">Tutorial</a>
+                <a href="keranjang.html" class="cart-icon">
+                    Keranjang <span class="cart-count">0</span>
+                </a>
+                <a href="#kontak">Kontak</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 id="hero-title-id">Official Ryuhuu Store</h1>
+            <div class="hero-subtitle" id="hero-subtitle-id">Cepat • Aman • Support 24/7</div>
+            <p class="hero-description" id="hero-desc-id">Official reseller penyedia tools premium dengan lisensi dan
+                akses update langsung dari source terbaik</p>
+
+            <div class="cta-buttons">
+                <a href="#produk" class="btn-primary" id="cta-button-id">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+                    </svg>
+                    Beli Cheetoss
+                </a>
+                <a href="tutorial.html" class="btn-secondary" id="tutorial-button-id">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                    Tutorial Pasang
+                </a>
+            </div>
+
+            <div class="language-selector">
+                <button class="lang-btn active" data-lang="id" id="btn-id">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m5 8 6 6"></path>
+                        <path d="m4 14 6-6 2-3"></path>
+                        <path d="M2 5h12"></path>
+                        <path d="M7 2h1"></path>
+                        <path d="m22 22-5-10-5 10"></path>
+                        <path d="M14 18h6"></path>
+                    </svg>
+                    Bahasa Indonesia
+                </button>
+                <button class="lang-btn" data-lang="en" id="btn-en">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path
+                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                        </path>
+                    </svg>
+                    English
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section - DIKECILKAN & LEBIH ELEGANT -->
+    <section class="features">
+        <h2 class="section-title" id="features-title-id">Kenapa Memilih Kami?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 id="feature1-title-id">Proses Cepat</h3>
+                <p id="feature1-desc-id">Pemesanan diproses dalam hitungan menit setelah pembayaran dikonfirmasi</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 id="feature2-title-id">Aman & Terpercaya</h3>
+                <p id="feature2-desc-id">Garansi keamanan akun dan transaksi dengan sistem yang terjamin</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 id="feature3-title-id">Harga Terbaik</h3>
+                <p id="feature3-desc-id">Harga kompetitif dengan kualitas layanan premium untuk semua produk</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3 id="feature4-title-id">Support 24/7</h3>
+                <p id="feature4-desc-id">Tim support siap membantu kapan saja melalui WhatsApp, Discord, dan Telegram
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="produk">
+        <h2 class="section-title" id="products-title-id">Produk Kami</h2>
+
+        <!-- Category Tabs dengan ICON -->
+        <div class="category-tabs">
+            <div class="category-tab active" data-category="all">Semua</div>
+            <div class="category-tab" data-category="genshin">Genshin Impact</div>
+            <div class="category-tab" data-category="wuthering">Wuthering Waves</div>
+            <div class="category-tab" data-category="solo">Solo Leveling Arise</div>
+            <div class="category-tab" data-category="star-rail">Star Rail</div>
+            <div class="category-tab" data-category="zenless">Zenless Zone Zero</div>
+            <div class="category-tab" data-category="marvel">Marvel Rivals</div>
+            <div class="category-tab" data-category="gta">GTA V Fivem</div>
+            <div class="category-tab" data-category="duet">Duet Night Abyss</div>
+            <div class="category-tab" data-category="where-winds">Where Winds Meet</div>
+            <div class="category-tab" data-category="stella">Stella Sore Global</div>
+            <div class="category-tab" data-category="blue">Blue Archive</div>
+            <div class="category-tab" data-category="crystal">Crystal of Atlan</div>
+            <div class="category-tab" data-category="ethernia">Etheria Restart</div>
+            <div class="category-tab" data-category="gfl2">GFL 2</div>
+        </div>
+
+        <div class="products-grid" id="productsContainer">
+            <!-- Products will be loaded here via JavaScript -->
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="section-title" id="testimonials-title-id">Apa Kata Pelanggan Kami?</h2>
+        <div class="testimonials-container">
+            <div class="testimonials-track">
+                <!-- Testimonial cards will be generated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 id="footer-about-title-id">Ryuhuustore</h3>
+                <p id="footer-about-desc-id">Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif.
+                    Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z">
+                            </path>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="12" r="1"></circle>
+                            <circle cx="15" cy="12" r="1"></circle>
+                            <path d="M9 16c1.5 2 3.5 2 5 0"></path>
+                            <path d="M5.5 18c-2-2-3-4-3-7a10 10 0 0 1 19 0c0 3-1 5-3 7"></path>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg></a>
+                    <a href="#" class="social-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3 id="footer-products-title-id">Kategori Game</h3>
+                <ul class="footer-links">
+                    <li><a href="#produk" onclick="filterProducts('genshin')"><svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> <span id="footer-game1-id">Genshin Impact</span></a></li>
+                    <li><a href="#produk" onclick="filterProducts('wuthering')"><svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> <span id="footer-game2-id">Wuthering Waves</span></a></li>
+                    <li><a href="#produk" onclick="filterProducts('solo')"><svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> <span id="footer-game3-id">Solo Leveling Arise</span></a></li>
+                    <li><a href="#produk" onclick="filterProducts('star-rail')"><svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> <span id="footer-game4-id">Star Rail</span></a></li>
+                    <li><a href="#produk" onclick="filterProducts('zenless')"><svg width="18" height="18"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="6" y1="12" x2="10" y2="12"></line>
+                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="15" cy="13" r="1"></circle>
+                                <circle cx="18" cy="11" r="1"></circle>
+                                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                            </svg> <span id="footer-game5-id">Zenless Zone Zero</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 id="footer-help-title-id">Bantuan</h3>
+                <ul class="footer-links">
+                    <li><a href="tutorial.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg> <span id="footer-help1-id">Cara Pembelian</span></a></li>
+                    <li><a href="tutorial.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg> <span id="footer-help2-id">Cara Penggunaan</span></a></li>
+                    <li><a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg> <span id="footer-help3-id">FAQ</span></a></li>
+                    <li><a href="#"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg> <span id="footer-help4-id">Kebijakan Privasi</span></a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3 id="footer-contact-title-id">Kontak</h3>
+                <ul class="footer-links">
+                    <li>
+                        <a href="mailto:ryuhuustore@gmail.com" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg> ryuhuustore@gmail.com
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285117065033" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z">
+                                </path>
+                            </svg> +62 851-1706-5033
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://t.me/ryuhuuz" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg> @ryuhuuz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://discord.com/users/1120396377839648780" target="_blank" class="contact-link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="12" r="1"></circle>
+                                <circle cx="15" cy="12" r="1"></circle>
+                                <path d="M9 16c1.5 2 3.5 2 5 0"></path>
+                                <path d="M5.5 18c-2-2-3-4-3-7a10 10 0 0 1 19 0c0 3-1 5-3 7"></path>
+                            </svg> ryuhuu.
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2024 Ryuhuustore. <span id="copyright-text-id">All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        // Data Produk (termasuk Shibal)
+        const productsData = [
+            {
+                id: "slash",
+                name: "Slash",
+                categories: ["genshin", "wuthering", "solo", "zenless", "duet", "where-winds", "stella", "blue", "crystal", "ethernia", "gfl2"],
+                game: "Multi-Game Support",
+                image: "produk/slash.png",
+                page: "produk/slash.html",
+                globalPage: "globalpayment.html",
+                localPrice: "40.000", // tetap ada untuk keperluan internal, tidak ditampilkan
+                globalPrice: "$4",
+                badge: "🔥 POPULAR",
+                rating: 4.9,
+                features: ["Auto Farm & Quest", "Multi-account Support", "Anti-Detection System", "Auto Daily Mission"],
+                availableGames: 11
+            },
+            {
+                id: "shika",
+                name: "Shika",
+                categories: ["genshin"],
+                game: "Genshin Impact",
+                image: "produk/shika.png",
+                page: "produk/shika.html",
+                globalPage: "globalpayment.html",
+                localPrice: "80.000",
+                globalPrice: "$5",
+                badge: "💎 PREMIUM",
+                rating: 4.8,
+                features: ["Advanced Features", "Priority Support", "Regular Updates", "Beta Access"]
+            },
+            {
+                id: "unicore",
+                name: "Unicore",
+                categories: ["genshin"],
+                game: "Genshin Impact",
+                image: "produk/unicore.png",
+                page: "produk/unicore.html",
+                globalPage: "globalpayment.html",
+                localPrice: "45.000",
+                globalPrice: "$2.5",
+                badge: "✨ LATEST",
+                rating: 4.9,
+                features: ["Interactive Map", "Advanced Combat", "Auto Systems", "Teleport Waypoint"]
+            },
+            {
+                id: "antiaddict",
+                name: "Antiaddict",
+                categories: ["genshin"],
+                game: "Genshin Impact",
+                image: "produk/antiaddict.png",
+                page: "produk/antiaddict.html",
+                globalPage: "globalpayment.html",
+                localPrice: "45.000",
+                globalPrice: "$2.5",
+                badge: "🚀 POWERFUL",
+                rating: 4.7,
+                features: ["Complete Feature Set", "User-Friendly Interface", "Stable Performance", "Anti-Ban System"]
+            },
+            {
+                id: "uniwaves",
+                name: "Uniwaves",
+                categories: ["wuthering"],
+                game: "Wuthering Waves",
+                image: "produk/uniwaves.png",
+                page: "produk/uniwaves.html",
+                globalPage: "globalpayment.html",
+                localPrice: "45.000",
+                globalPrice: "$2.5",
+                badge: "✨ LATEST",
+                rating: 4.6,
+                features: ["Wave-specific Features", "Optimized Performance", "Regular Updates", "Auto Resonance"]
+            },
+            {
+                id: "unistar",
+                name: "Unistar",
+                categories: ["star-rail"],
+                game: "Star Rail",
+                image: "produk/unistar.png",
+                page: "produk/unistar.html",
+                globalPage: "globalpayment.html",
+                localPrice: "81.000",
+                globalPrice: "$5",
+                badge: "💎 PREMIUM",
+                rating: 4.7,
+                features: ["Rail-specific Features", "Optimized Performance", "Regular Updates", "Auto Battle"]
+            },
+            {
+                id: "unizone",
+                name: "Unizone",
+                categories: ["zenless"],
+                game: "Zenless Zone Zero",
+                image: "produk/unizone.png",
+                page: "produk/unizone.html",
+                globalPage: "globalpayment.html",
+                localPrice: "45.000",
+                globalPrice: "$3",
+                badge: "✨ LATEST",
+                rating: 4.5,
+                features: ["Zone-specific Features", "Optimized Performance", "Regular Updates", "Proxy Support"]
+            },
+            {
+                id: "unirivals",
+                name: "Unirivals",
+                categories: ["marvel"],
+                game: "Marvel Rivals",
+                image: "produk/unirivals.png",
+                page: "produk/unirivals.html",
+                globalPage: "globalpayment.html",
+                localPrice: "65.000",
+                globalPrice: "$5",
+                badge: "🦸 SUPER",
+                rating: 4.4,
+                features: ["Marvel-specific Features", "Optimized Performance", "Regular Updates", "Auto Aim"]
+            },
+            {
+                id: "unitheft",
+                name: "Unitheft",
+                categories: ["gta"],
+                game: "GTA V Fivem",
+                image: "produk/unitheft.png",
+                page: "produk/unitheft.html",
+                globalPage: "globalpayment.html",
+                localPrice: "40.000",
+                globalPrice: "$2.5",
+                badge: "🚗 FAST",
+                rating: 4.3,
+                features: ["Fivem-specific Features", "Optimized Performance", "Regular Updates", "Money Drop"]
+            },
+            {
+                id: "unidna",
+                name: "Unidna",
+                categories: ["duet"],
+                game: "Duet Night Abyss",
+                image: "produk/unidna.png",
+                page: "produk/unidna.html",
+                globalPage: "globalpayment.html",
+                localPrice: "42.000",
+                globalPrice: "$3",
+                badge: "🌙 NIGHT",
+                rating: 4.5,
+                features: ["Abyss-specific Features", "Optimized Performance", "Regular Updates", "Auto Dungeon"]
+            },
+            {
+                id: "shibal", // Produk Shibal ditambahkan
+                name: "Shibal",
+                categories: ["genshin"],
+                game: "Genshin Impact",
+                image: "produk/shibal.png",
+                page: "produk/shibal.html",
+                globalPage: "globalpayment.html",
+                localPrice: "75.000",
+                globalPrice: "$5",
+                badge: "✨ INVITE CODE",
+                rating: 4.8,
+                features: ["Invite Code Premium", "Akses Fitur Lengkap", "Update Rutin", "Support 24/7"],
+                availableGames: 1
+            },
+            {
+                id: "predator",
+                name: "Secret Tool",
+                categories: ["all"],
+                game: "Multi-Game",
+                image: "produk/predator.png",
+                page: "#",
+                globalPage: "#",
+                localPrice: "Coming Soon",
+                globalPrice: "Coming Soon",
+                badge: "🚀 COMING SOON",
+                rating: 0,
+                features: ["Revolutionary Features", "Next-Gen Technology", "Multi-Platform Support", "AI-Powered"],
+                comingSoon: true
+            }
+        ];
+
+        // Terjemahan Bahasa
+        const translations = {
+            id: {
+                "hero-title": "Official Ryuhuu Store",
+                "hero-subtitle": "Cepat • Aman • Support 24/7",
+                "hero-desc": "Official reseller penyedia tools premium dengan lisensi dan akses update langsung dari source terbaik",
+                "cta-button": "Beli Cheetoss",
+                "tutorial-button": "Tutorial Pasang",
+
+                "features-title": "Kenapa Memilih Kami?",
+                "feature1-title": "Proses Cepat",
+                "feature1-desc": "Pemesanan diproses dalam hitungan menit setelah pembayaran dikonfirmasi",
+                "feature2-title": "Aman & Terpercaya",
+                "feature2-desc": "Garansi keamanan akun dan transaksi dengan sistem yang terjamin",
+                "feature3-title": "Harga Terbaik",
+                "feature3-desc": "Harga kompetitif dengan kualitas layanan premium untuk semua produk",
+                "feature4-title": "Support 24/7",
+                "feature4-desc": "Tim support siap membantu kapan saja melalui WhatsApp, Discord, dan Telegram",
+
+                "products-title": "Produk Kami",
+                "category-all": "Semua",
+                "category-genshin": "Genshin Impact",
+                "category-wuthering": "Wuthering Waves",
+                "category-solo": "Solo Leveling Arise",
+                "category-star-rail": "Star Rail",
+                "category-zenless": "Zenless Zone Zero",
+                "category-marvel": "Marvel Rivals",
+                "category-gta": "GTA V Fivem",
+                "category-duet": "Duet Night Abyss",
+                "category-where-winds": "Where Winds Meet",
+                "category-stella": "Stella Sore Global",
+                "category-blue": "Blue Archive",
+                "category-crystal": "Crystal of Atlan",
+                "category-ethernia": "Etheria Restart",
+                "category-gfl2": "GFL 2",
+
+                "testimonials-title": "Apa Kata Pelanggan Kami?",
+                "testimonial1": "Prosesnya cepat banget! Baru bayar 5 menit langsung diproses. Produknya juga work tanpa kendala. Recommended banget!",
+                "testimonial2": "Supportnya ramah dan responsif. Sempat ada kendala teknis tapi dibantu sampai selesai. Pelayanan emang top!",
+                "testimonial3": "Harganya kompetitif dan kualitasnya premium. Udah coba beberapa produk dan semuanya memuaskan. Bakal langganan di sini!",
+                "testimonial4": "Pertama kali beli di sini dan langsung puas. Prosesnya mudah, pembayaran cepat, dan produk sesuai. Pasti akan repeat order!",
+                "testimonial5": "Layanan customer service sangat membantu. Respon cepat dan solutif. Pengalaman belanja yang menyenangkan!",
+                "testimonial6": "Baru pertama kali top up game online dan ternyata mudah banget. Panduannya jelas, proses cepat. Terima kasih Ryuhuustore!",
+                "testimonial7": "Dibanding toko lain, Ryuhuustore memang lebih terpercaya. Produk selalu update dan harganya terjangkau. Recommended!",
+                "testimonial8": "Sudah belanja berkali-kali di sini dan selalu puas. Proses cepat, produk berkualitas, dan support responsif. Terbaik!",
+
+                "footer-about-title": "Ryuhuustore",
+                "footer-about-desc": "Toko top up game terpercaya dengan pelayanan terbaik dan harga kompetitif. Kami berkomitmen memberikan pengalaman berbelanja terbaik untuk para gamer.",
+                "footer-products-title": "Kategori Game",
+                "footer-game1": "Genshin Impact",
+                "footer-game2": "Wuthering Waves",
+                "footer-game3": "Solo Leveling Arise",
+                "footer-game4": "Star Rail",
+                "footer-game5": "Zenless Zone Zero",
+                "footer-help-title": "Bantuan",
+                "footer-help1": "Cara Pembelian",
+                "footer-help2": "Cara Penggunaan",
+                "footer-help3": "FAQ",
+                "footer-help4": "Kebijakan Privasi",
+                "footer-contact-title": "Kontak",
+                "copyright-text": "Hak cipta dilindungi undang-undang.",
+
+                "view-details": "Lihat Detail",
+                "coming-soon": "Segera Hadir",
+                "available-games": "Tersedia untuk",
+                "games-text": "Game",
+                "price-label": "Harga",
+                "global-price": "Harga Global"
+            },
+            en: {
+                "hero-title": "Official Ryuhuu Store",
+                "hero-subtitle": "Fast • Secure • 24/7 Support",
+                "hero-desc": "Official reseller of premium tools with licenses and direct update access from the best sources",
+                "cta-button": "Buy Cheetoss",
+                "tutorial-button": "Install Tutorial",
+
+                "features-title": "Why Choose Us?",
+                "feature1-title": "Fast Process",
+                "feature1-desc": "Orders processed within minutes after payment confirmation",
+                "feature2-title": "Safe & Trusted",
+                "feature2-desc": "Account security guarantee and transactions with guaranteed system",
+                "feature3-title": "Best Prices",
+                "feature3-desc": "Competitive prices with premium service quality for all products",
+                "feature4-title": "24/7 Support",
+                "feature4-desc": "Support team ready to help anytime via WhatsApp, Discord, and Telegram",
+
+                "products-title": "Our Products",
+                "category-all": "All",
+                "category-genshin": "Genshin Impact",
+                "category-wuthering": "Wuthering Waves",
+                "category-solo": "Solo Leveling Arise",
+                "category-star-rail": "Star Rail",
+                "category-zenless": "Zenless Zone Zero",
+                "category-marvel": "Marvel Rivals",
+                "category-gta": "GTA V Fivem",
+                "category-duet": "Duet Night Abyss",
+                "category-where-winds": "Where Winds Meet",
+                "category-stella": "Stella Sore Global",
+                "category-blue": "Blue Archive",
+                "category-crystal": "Crystal of Atlan",
+                "category-ethernia": "Etheria Restart",
+                "category-gfl2": "GFL 2",
+
+                "testimonials-title": "What Our Customers Say?",
+                "testimonial1": "The process is super fast! Payment processed in 5 minutes. The product works without any issues. Highly recommended!",
+                "testimonial2": "Friendly and responsive support. Had technical issues but was helped until resolved. Service is top notch!",
+                "testimonial3": "Competitive prices and premium quality. Tried several products and all were satisfying. Will subscribe here!",
+                "testimonial4": "First time buying here and immediately satisfied. Easy process, fast payment, and product as described. Definitely will repeat order!",
+                "testimonial5": "Customer service is very helpful. Quick and solution-oriented responses. A pleasant shopping experience!",
+                "testimonial6": "First time topping up games online and it's so easy. Clear guidelines, fast process. Thank you Ryuhuustore!",
+                "testimonial7": "Compared to other stores, Ryuhuustore is indeed more trustworthy. Products always updated and affordable prices. Recommended!",
+                "testimonial8": "Have shopped here many times and always satisfied. Fast process, quality products, and responsive support. The best!",
+
+                "footer-about-title": "Ryuhuustore",
+                "footer-about-desc": "Trusted game top-up store with the best service and competitive prices.",
+                "footer-products-title": "Game Categories",
+                "footer-game1": "Genshin Impact",
+                "footer-game2": "Wuthering Waves",
+                "footer-game3": "Solo Leveling Arise",
+                "footer-game4": "Star Rail",
+                "footer-game5": "Zenless Zone Zero",
+                "footer-help-title": "Help",
+                "footer-help1": "How to Purchase",
+                "footer-help2": "How to Use",
+                "footer-help3": "FAQ",
+                "footer-help4": "Privacy Policy",
+                "footer-contact-title": "Contact",
+                "copyright-text": "All rights reserved.",
+
+                "view-details": "View Details",
+                "coming-soon": "Coming Soon",
+                "available-games": "Available for",
+                "games-text": "Games",
+                "price-label": "Price",
+                "global-price": "Global Price"
+            }
+        };
+
+        // Testimonials Data
+        const testimonialsData = [
+            { id: 1, author: "R* S****", game: "Unicore", initial: "R" },
+            { id: 2, author: "A**** D****", game: "Slash", initial: "A" },
+            { id: 3, author: "S**** M****", game: "Antiaddict", initial: "S" },
+            { id: 4, author: "F**** A****", game: "Uniwaves", initial: "F" },
+            { id: 5, author: "D**** P****", game: "Shika", initial: "D" },
+            { id: 6, author: "M**** R****", game: "Unicore", initial: "M" },
+            { id: 7, author: "B**** W****", game: "Slash", initial: "B" },
+            { id: 8, author: "H**** L****", game: "Antiaddict", initial: "H" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize original functions
+            loadProducts();
+            loadTestimonials();
+            updateCartCount();
+            setupEventListeners();
+
+            // Auto-hide notifications after 10 seconds
+            setTimeout(autoHideNotifications, 10000);
+
+            function generateStarRating(rating) {
+                let starsHTML = '';
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+
+                // Full stars
+                for (let i = 0; i < fullStars; i++) {
+                    starsHTML += '<i class="fas fa-star"></i>';
+                }
+
+                // Half star
+                if (hasHalfStar) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                }
+
+                // Empty stars
+                const emptyStars = 5 - Math.ceil(rating);
+                for (let i = 0; i < emptyStars; i++) {
+                    starsHTML += '<i class="far fa-star"></i>';
+                }
+
+                return starsHTML;
+            }
+
+            function loadProducts(category = 'all') {
+                const container = document.getElementById('productsContainer');
+                container.innerHTML = '';
+
+                const filteredProducts = category === 'all'
+                    ? productsData
+                    : productsData.filter(product =>
+                        product.categories.includes(category) || product.categories.includes("all")
+                    );
+
+                filteredProducts.forEach((product, index) => {
+                    const card = createProductCard(product);
+                    container.appendChild(card);
+                });
+            }
+
+            function createProductCard(product) {
+                const card = document.createElement('a');
+                card.className = 'product-card';
+
+                // Tentukan halaman berdasarkan bahasa
+                const lang = document.body.getAttribute('data-lang');
+                const pageUrl = lang === 'en' && product.globalPage ? product.globalPage : product.page;
+
+                card.href = product.comingSoon ? '#' : pageUrl;
+
+                // Buat HTML tanpa harga
+                card.innerHTML = `
+                    <div class="product-badge ${product.comingSoon ? 'badge-coming-soon' : 'badge-popular'}">
+                        ${product.badge}
+                    </div>
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x180/1e293b/8b5cf6?text=${encodeURIComponent(product.name)}'">
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">${product.game}</div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-rating">
+                            <div class="stars">
+                                ${generateStarRating(product.rating)}
+                            </div>
+                            <div class="rating-value">${product.rating}/5.0</div>
+                        </div>
+                        ${product.availableGames ?
+                        `<div class="product-badge" style="position: static; margin: 0.5rem 0; background: rgba(139, 92, 246, 0.2); color: var(--color-10);">
+                                ${product.availableGames} Games Supported
+                            </div>` : ''
+                    }
+                        <ul class="product-features">
+                            ${product.features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        <div class="product-footer">
+                            <a href="${product.comingSoon ? '#' : pageUrl}" class="btn-view">
+                                ${product.comingSoon ? 'Coming Soon' : (lang === 'id' ? 'Lihat Detail' : 'View Details')}
+                            </a>
+                        </div>
+                    </div>
+                `;
+
+                if (product.comingSoon) {
+                    card.addEventListener('click', e => e.preventDefault());
+                }
+
+                return card;
+            }
+
+            function loadTestimonials() {
+                const track = document.querySelector('.testimonials-track');
+                track.innerHTML = '';
+
+                // Duplicate testimonials for seamless loop
+                [...testimonialsData, ...testimonialsData].forEach(testimonial => {
+                    const lang = document.body.getAttribute('data-lang');
+                    const content = translations[lang][`testimonial${testimonial.id}`];
+
+                    const card = document.createElement('div');
+                    card.className = 'testimonial-card';
+                    card.innerHTML = `
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="testimonial-content">${content}</div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">${testimonial.initial}</div>
+                            <div class="author-info">
+                                <h4>${testimonial.author}</h4>
+                                <p>Pengguna ${testimonial.game}</p>
+                            </div>
+                        </div>
+                    `;
+                    track.appendChild(card);
+                });
+            }
+
+            function updateCartCount() {
+                try {
+                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                    document.querySelector('.cart-count').textContent = cart.length;
+                } catch {
+                    document.querySelector('.cart-count').textContent = '0';
+                }
+            }
+
+            function setupEventListeners() {
+                // Category tabs
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.addEventListener('click', function () {
+                        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        loadProducts(this.dataset.category);
+                    });
+                });
+
+                // Language buttons
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        changeLanguage(this.dataset.lang);
+                    });
+                });
+            }
+
+            function changeLanguage(lang) {
+                // Update body attribute
+                document.body.setAttribute('data-lang', lang);
+
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+
+                // Update all text content
+                const trans = translations[lang];
+                Object.keys(trans).forEach(key => {
+                    const elements = document.querySelectorAll(`[id*="${key}"]`);
+                    elements.forEach(el => {
+                        if (el.id.includes(key)) {
+                            el.textContent = trans[key];
+                        }
+                    });
+                });
+
+                // Update button texts
+                document.querySelectorAll('.btn-view').forEach(btn => {
+                    if (btn.textContent.includes('View Details') || btn.textContent.includes('Lihat Detail')) {
+                        btn.textContent = trans['view-details'];
+                    } else if (btn.textContent.includes('Coming Soon') || btn.textContent.includes('Segera Hadir')) {
+                        btn.textContent = trans['coming-soon'];
+                    }
+                });
+
+                // Update notifications
+                updateNotifications(lang);
+
+                // Reload testimonials with new language
+                loadTestimonials();
+
+                // Reload products with new language links
+                const activeCategory = document.querySelector('.category-tab.active');
+                if (activeCategory) {
+                    loadProducts(activeCategory.dataset.category);
+                }
+
+                // Update CTA button link for English
+                const ctaButton = document.getElementById('cta-button-id');
+                if (ctaButton) {
+                    if (lang === 'en') {
+                        ctaButton.href = 'globalpayment.html';
+                    } else {
+                        ctaButton.href = '#produk';
+                    }
+                }
+            }
+
+            function updateNotifications(lang) {
+                const notificationId = document.getElementById('notification-id');
+                const notificationEn = document.getElementById('notification-en');
+
+                if (lang === 'id') {
+                    notificationId.style.display = 'block';
+                    notificationEn.style.display = 'none';
+                } else {
+                    notificationId.style.display = 'none';
+                    notificationEn.style.display = 'block';
+                }
+            }
+
+            function autoHideNotifications() {
+                document.querySelectorAll('.payment-notification').forEach(notification => {
+                    if (window.getComputedStyle(notification).display !== 'none') {
+                        notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                        setTimeout(() => {
+                            notification.style.display = 'none';
+                        }, 500);
+                    }
+                });
+            }
+
+            window.hideNotification = function (lang) {
+                const notification = document.getElementById(`notification-${lang}`);
+                notification.style.animation = 'slideOutRight 0.5s ease-out forwards';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 500);
+            };
+
+            window.filterProducts = function (category) {
+                const tab = document.querySelector(`.category-tab[data-category="${category}"]`);
+                if (tab) tab.click();
+            };
+        });
+    </script>
+    <script src="ui.js"></script>
+    <script src="auth.js"></script>
+    <script src="security.js"></script>
+</body>
+
+</html>
